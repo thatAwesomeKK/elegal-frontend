@@ -1,12 +1,11 @@
+import { toast } from "react-toastify";
 import { alertCall } from "../toast/alertCall";
 
-const isServer = typeof window === 'undefined';
-let host_url
+const isServer = typeof window === "undefined";
+let host_url;
 
-if(isServer) 
-  host_url = process.env.BACKEND_URL
-else 
-  host_url = process.env.NEXT_PUBLIC_BACKEND_URL
+if (isServer) host_url = process.env.BACKEND_URL;
+else host_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const base_url = `${host_url}/api/profile`;
 
@@ -20,8 +19,7 @@ export const getProfileRedux = async (accessToken: string) => {
       },
     }).then((res) => res.json());
     // console.log(payload);
-    if(!payload.success)
-       return null
+    if (!payload.success) return null;
     return payload.message;
   } catch (error) {
     console.log(error);
@@ -45,6 +43,7 @@ export const getProfile = async (accessToken: string) => {
 };
 
 export const updateProfile = async (data: any, accessToken: string) => {
+  const id = toast.loading("Please Wait...");
   try {
     const payload = await fetch(`${base_url}/update`, {
       method: "POST",
@@ -54,7 +53,7 @@ export const updateProfile = async (data: any, accessToken: string) => {
       },
       body: JSON.stringify(data),
     }).then((res) => res.json());
-    alertCall(payload)
+    alertCall(payload, id);
   } catch (error) {
     console.log(error);
   }

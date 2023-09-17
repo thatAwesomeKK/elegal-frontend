@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { alertCall } from "../toast/alertCall";
 
 const isServer = typeof window === 'undefined';
@@ -11,6 +12,7 @@ else
 const base_url = `${host_url}/api/service-request`;
 
 export const createServiceRequest = async (data: any, accessToken: any) => {
+  const id = toast.loading("Please Wait...");
   try {
     const payload = await fetch(`${base_url}/create`, {
       method: "POST",
@@ -21,7 +23,7 @@ export const createServiceRequest = async (data: any, accessToken: any) => {
       body: JSON.stringify(data),
     }).then((res) => res.json());
     console.log(payload);
-    alertCall(payload);
+    alertCall(payload, id);
   } catch (error) {
     console.log(error);
   }
