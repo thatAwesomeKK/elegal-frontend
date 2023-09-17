@@ -1,7 +1,13 @@
-import { toast } from "react-toastify";
 import { alertCall } from "../toast/alertCall";
 
-const host_url = "http://localhost:5000";
+const isServer = typeof window === 'undefined';
+let host_url
+
+if(isServer) 
+  host_url = process.env.BACKEND_URL
+else 
+  host_url = process.env.NEXT_PUBLIC_BACKEND_URL
+
 const base_url = `${host_url}/api/service-request`;
 
 export const createServiceRequest = async (data: any, accessToken: any) => {

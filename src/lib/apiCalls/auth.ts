@@ -2,7 +2,13 @@ import { store } from "../redux/store";
 import { alertCall } from "../toast/alertCall";
 import { storeUser } from "../redux/slice/userSlice";
 
-const host_url = "http://localhost:5000";
+const isServer = typeof window === 'undefined';
+let host_url
+
+if(isServer) 
+  host_url = process.env.BACKEND_URL
+else 
+  host_url = process.env.NEXT_PUBLIC_BACKEND_URL
 const base_url = `${host_url}/api/auth`;
 
 export const login = async (data: any) => {
