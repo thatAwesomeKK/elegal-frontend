@@ -3,14 +3,15 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Progress } from '../ui/progress'
 import Link from 'next/link'
-import { Service } from '@/lib/typings'
+import { Service, User } from '@/lib/typings'
 import { Badge } from '../ui/badge'
 
 interface PageProps {
     order: Service
+    user: User
 }
 
-const OrdersCard = ({ order }: PageProps) => {
+const OrdersCard = ({ order, user }: PageProps) => {
 
     const lifeStage = (life: string) => {
         switch (life) {
@@ -22,7 +23,7 @@ const OrdersCard = ({ order }: PageProps) => {
                 return 60;
             case "completed":
                 return 80;
-            case "delivered":
+            case "received":
                 return 100;
             default:
                 break;
@@ -34,7 +35,7 @@ const OrdersCard = ({ order }: PageProps) => {
             <Card className="w-96 h-96 flex flex-col justify-between">
                 <CardHeader>
                     <CardTitle className='flex flex-col gap-2'>
-                        {order.life === 'delivered' ? <Badge className='w-fit bg-green-500 text-center'>Completed</Badge> : <Badge className='w-fit text-center'>In Progress</Badge>}
+                        {order.life === 'received' ? <Badge className='w-fit bg-green-500 text-center'>Completed</Badge> : <Badge className='w-fit text-center'>In Progress</Badge>}
                         <span className='capitalize font-bold'>{order.type}({order.caseType})</span>
                     </CardTitle>
                     <CardDescription className='font-medium'>
@@ -43,7 +44,7 @@ const OrdersCard = ({ order }: PageProps) => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <p><span className='font-medium'>Stage:</span> {order.life}</p>
+                    <p><span className='font-medium'>Stage:</span> {user?.role === "buyer" ? "received" : "delivered"}</p>
                     <Progress className='' value={lifeStage(order.life)} />
                     <div className='flex items-center gap-3 mt-3'>
                         <p className='font-semibold text-lg'>Assigned To:</p>

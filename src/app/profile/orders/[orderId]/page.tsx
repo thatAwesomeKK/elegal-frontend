@@ -3,9 +3,8 @@ import { fetchServiceWithId } from '@/lib/apiCalls/service'
 import { Service } from '@/lib/typings'
 import { cookies } from 'next/headers'
 import React from 'react'
-import PaymentButton from './PaymentButton'
-import CompletedButton from './CompletedButton'
 import { store } from '@/lib/redux/store'
+import ActionButtons from './ActionButtons'
 
 interface PageProps {
     params: {
@@ -32,7 +31,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
         if (service.life === 'completed' && (stage === 'completed' || stage === 'paid' || stage === 'assigned' || stage === 'created'))
             return true
 
-        if (service.life === 'delivered' && (stage === 'delivered' || stage === 'completed' || stage === 'paid' || stage === 'assigned' || stage === 'created'))
+        if (service.life === 'received' && (stage === 'received' || stage === 'completed' || stage === 'paid' || stage === 'assigned' || stage === 'created'))
             return true
         return false
     }
@@ -57,20 +56,21 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
                         <p>{service.LegalProviderId.username}</p>
                     </> : (<p className='text-red-500 font-semibold'>No Service Provider Assigned</p>)}
                 </div>
-                {(user?.role === 'buyer' && service.life === 'assigned') && <PaymentButton accessToken={accessToken!} service={service} />}
-                {(user?.role === 'service-provider' && service.life === 'paid') && <CompletedButton accessToken={accessToken!} serviceId={service._id} />}
+                <ActionButtons user={user} accessToken={accessToken!} service={service}/>
                 {!checkLife('delivered') ? <ul className="steps w-full">
                     <li className={`step ${checkLife("created") && "step-primary"}`}>Created</li>
                     <li className={`step ${checkLife("assigned") && "step-primary"}`}>Service Provider Assigned</li>
                     <li className={`step ${checkLife("paid") && "step-primary"}`}>Paid</li>
                     <li className={`step ${checkLife("completed") && "step-primary"}`}>Completed</li>
-                    <li className={`step ${checkLife("delivered") && "step-primary"}`}>Delivered</li>
+                    {user?.role === "buyer" && <li className={`step ${checkLife("received") && "step-primary"}`}>Recieved</li>}
+                    {user?.role === "service-provider" && <li className={`step ${checkLife("received") && "step-primary"}`}>Delivered</li>}
                 </ul> : <ul className="steps w-full">
                     <li className='step step-success'>Created</li>
                     <li className='step step-success'>Service Provider Assigned</li>
                     <li className='step step-success'>Paid</li>
                     <li className='step step-success'>Completed</li>
-                    <li className='step step-success'>Delivered</li>
+                    {user?.role === "buyer" && <li className='step step-success'>Recieved</li>}
+                    {user?.role === "service-provider" && <li className='step step-success'>Delivered</li>}
                 </ul>}
             </section>
         </main>

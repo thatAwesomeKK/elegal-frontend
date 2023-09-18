@@ -23,6 +23,7 @@ function UserButton({ user, accessToken }: PageProps) {
                     </>) :
                     (<>
                         <li><Link href="/auth/login" className='text-lg font-semibold'><FiLogIn className='h-6 w-6 mr-2' />SignIn</Link></li>
+                        <li><Link href="/auth/register" className='text-lg font-semibold'><FiLogIn className='h-6 w-6 mr-2' />SignUp</Link></li>
                     </>)
             }</>
     )

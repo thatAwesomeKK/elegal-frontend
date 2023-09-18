@@ -27,8 +27,6 @@ const ActionButtons = ({ accessToken, serviceId, price }: PageProps) => {
         },
     })
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
-
         setLoading(true)
         await applyToService(accessToken, serviceId, values.price)
         setLoading(false)
@@ -50,7 +48,7 @@ const ActionButtons = ({ accessToken, serviceId, price }: PageProps) => {
                         </FormItem>
                     )}
                 />
-                <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+                <Button disabled={loading} className='active:scale-105' type="submit">Apply</Button>
             </form>
         </Form>
     )

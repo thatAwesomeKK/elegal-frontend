@@ -1,13 +1,11 @@
 import { toast } from "react-toastify";
 import { alertCall } from "../toast/alertCall";
 
-const isServer = typeof window === 'undefined';
-let host_url
+const isServer = typeof window === "undefined";
+let host_url;
 
-if(isServer) 
-  host_url = process.env.BACKEND_URL
-else 
-  host_url = process.env.NEXT_PUBLIC_BACKEND_URL
+if (isServer) host_url = process.env.BACKEND_URL;
+else host_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const base_url = `${host_url}/api/service-request`;
 
@@ -100,6 +98,7 @@ export const applyToService = async (
   serviceId: string,
   price: string
 ) => {
+  const id = toast.loading("Please Wait....");
   try {
     const payload = await fetch(`${base_url}/service-life?life=assigned`, {
       method: "POST",
@@ -109,7 +108,7 @@ export const applyToService = async (
       },
       body: JSON.stringify({ serviceId, price }),
     }).then((res) => res.json());
-    return payload.message;
+    alertCall(payload, id);
   } catch (error) {
     console.log(error);
   }
@@ -137,6 +136,25 @@ export const completeService = async (
 ) => {
   try {
     const payload = await fetch(`${base_url}/service-life?life=completed`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ serviceId }),
+    }).then((res) => res.json());
+    return payload.message;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const receivedService = async (
+  accessToken: string,
+  serviceId: string
+) => {
+  try {
+    const payload = await fetch(`${base_url}/service-life?life=received`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
