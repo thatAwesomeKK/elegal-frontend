@@ -1,10 +1,10 @@
 import { Id, toast } from "react-toastify";
 
-export const alertCall = async(payload: any, id:Id) => {
+export const alertCall = async (payload: any, id: Id) => {
   if (payload.success) {
     alert("update_success", payload.message, id);
   } else {
-    alert("update_error", payload.message, id);
+    alert("update_error", payload.error, id);
   }
 };
 

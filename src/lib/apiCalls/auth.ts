@@ -47,6 +47,56 @@ export const register = async (data: any) => {
   }
 };
 
+export const verifyEmail = async (token: string) => {
+  try {
+    const payload = await fetch(`${base_url}/verify-email`, {
+      cache: "no-store",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    }).then((res) => res.json());
+    console.log(payload);
+    return payload;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const forgotPassword = async (email: string) => {
+  const id = toast.loading("Please Wait...");
+  try {
+    const payload = await fetch(`${base_url}/forgot-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    }).then((res) => res.json());
+    alertCall(payload, id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changePassword = async (token: string, password: string) => {
+  const id = toast.loading("Please Wait...");
+  try {
+    const payload = await fetch(`${base_url}/change-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify({ password }),
+    }).then((res) => res.json());
+    alertCall(payload, id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const logout = async (accessToken: any) => {
   const id = toast.loading("Please Wait...");
   try {
