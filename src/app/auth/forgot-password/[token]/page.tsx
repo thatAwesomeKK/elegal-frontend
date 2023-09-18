@@ -8,7 +8,9 @@ interface PageProps {
 }
 
 const VerifyPasswordToken = ({ params: { token } }: PageProps) => {
-    return <ChangePasswordForm token={token} />
+    return <main className='h-[93.5vh] flex justify-center items-center'>
+        <ChangePasswordForm token={token} />
+    </main>
 }
 
 export default VerifyPasswordToken

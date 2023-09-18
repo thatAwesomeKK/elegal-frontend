@@ -34,7 +34,7 @@ const ChangePasswordForm = ({ token }: PageProps) => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-4/12 shadow-lg rounded-lg bg-white p-7">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-[25%] shadow-lg rounded-lg bg-white p-7">
                 <FormField
                     control={form.control}
                     name="password"
