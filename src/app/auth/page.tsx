@@ -8,6 +8,7 @@ import {
     TabsContent
 } from "@/components/ui/tabs";
 import AuthForms from '@/components/Forms/authForms';
+import { redirect } from 'next/navigation';
 
 type pageType = {
     params?: {
@@ -25,7 +26,9 @@ const page = ({
 
     let type = searchParams?.type as string || "register";
     let token = searchParams?.token as string || "";
-    console.log(type)
+    if (type === "change-password" && (token === "" || !token)) {
+        redirect("/auth?type=login")
+    }
     return (
         <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]'>
             <Tabs
