@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import * as z from "zod"
-import { useForm, UseFormReturn } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { register, login, forgotPassword, changePassword } from '@/lib/apiCalls/auth'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
@@ -48,7 +48,7 @@ const changePasswordSchema = z.object({
 })
 
 
-const AuthForms = ({ type, token }: { type: string, token?: string }) => {
+const AuthForm = ({ type, token }: { type: string, token?: string }) => {
     const [loading, setLoading] = useState(false)
     // console.log("type", type)
     const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -463,4 +463,4 @@ const CustomFormControl = (
     }
 }
 
-export default AuthForms
+export default AuthForm
