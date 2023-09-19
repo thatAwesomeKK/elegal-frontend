@@ -6,7 +6,6 @@ import { useForm, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { register, login, forgotPassword, changePassword } from '@/lib/apiCalls/auth'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 
@@ -89,12 +88,16 @@ const AuthForms = ({ type, token }: { type: string, token?: string }) => {
         setLoading(true)
         const { confirmPassword, ...rest } = values
         await register(rest)
+        // reset form
+        registerForm.reset()
         setLoading(false)
     }
 
     const onLoginSubmit = async (values: z.infer<typeof loginSchema>) => {
         setLoading(true)
         await login(values)
+        // reset form
+        loginForm.reset()
         setLoading(false)
     }
 
@@ -103,6 +106,8 @@ const AuthForms = ({ type, token }: { type: string, token?: string }) => {
 
         setLoading(true)
         await forgotPassword(values.email)
+        // reset form
+        forgotPasswordForm.reset()
         setLoading(false)
     }
 
@@ -110,6 +115,8 @@ const AuthForms = ({ type, token }: { type: string, token?: string }) => {
         setLoading(true)
         const { password } = values
         await changePassword(token as string, password)
+        // reset form
+        changePasswordForm.reset()
         setLoading(false)
     }
 
@@ -286,7 +293,12 @@ const AuthForms = ({ type, token }: { type: string, token?: string }) => {
                 <Form {...registerForm}>
                     <form onSubmit={registerForm.handleSubmit(onRegisterSubmit)} className="w-full shadow-lg rounded-lg bg-white px-5 pb-5 pt-3">
                         <CustomForm schema={registerFormSchema} />
-                        <Button disabled={loading} className='active:scale-105 mt-3' type="submit">Submit</Button>
+                        <div className='mt-3 flex gap-3'>
+                            <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+                            <Button type="button" variant="ghost" onClick={() => registerForm.reset()}>
+                                Reset
+                            </Button>
+                        </div>
                     </form>
                 </Form>
             )
@@ -295,8 +307,13 @@ const AuthForms = ({ type, token }: { type: string, token?: string }) => {
                 <Form {...loginForm}>
                     <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
                         <CustomForm schema={loginFormSchema} />
-                        <div className='flex justify-start flex-wrap items-center gap-4 mt-4'>
-                            <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+                        <div className='flex justify-between flex-wrap items-center mt-4'>
+                            <div className='flex items-center gap-4'>
+                                <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+                                <Button type="button" variant="ghost" onClick={() => loginForm.reset()}>
+                                    Reset
+                                </Button>
+                            </div>
                             <Button asChild variant="ghost">
                                 <Link href={'/auth?type=forgot-password'} className='cursor-pointer'>Forgot Password ?</Link>
                             </Button>

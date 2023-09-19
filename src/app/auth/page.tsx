@@ -1,6 +1,3 @@
-import LoginForm from '@/components/Forms/LoginForm'
-import RegisterForm from '@/components/Forms/RegisterForm'
-import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
 import {
     Tabs,
     TabsList,
@@ -29,6 +26,7 @@ const page = ({
     if (type === "change-password" && (token === "" || !token)) {
         redirect("/auth?type=login")
     }
+
     return (
         <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]'>
             <Tabs
