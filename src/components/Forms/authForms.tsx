@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import * as z from "zod"
 import { useForm, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
-import { register, login } from '@/lib/apiCalls/auth'
+import { register, login, forgotPassword, changePassword } from '@/lib/apiCalls/auth'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -19,12 +19,16 @@ const registerSchema = z.object({
     username: z.string().min(4).max(50),
     email: z.string().email(),
     password: z.string().min(6).max(50),
+    confirmPassword: z.string().min(6).max(50),
     licenseId: z.string().min(6).max(50).optional(),
     type: z.string().optional(),
     specialization: z.string().optional(),
     role: z.enum(["buyer", "service-provider"], {
         required_error: "You need to select a Role.",
     }),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match.",
+    path: ["confirmPassword"],
 })
 
 const loginSchema = z.object({
@@ -32,9 +36,20 @@ const loginSchema = z.object({
     password: z.string().min(6).max(50),
 })
 
+const forgotPasswordSchema = z.object({
+    email: z.string().email(),
+})
+
+const changePasswordSchema = z.object({
+    password: z.string().min(6).max(50),
+    confirmPassword: z.string().min(6).max(50),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match.",
+    path: ["confirmPassword"],
+})
 
 
-const AuthForms = ({ type }: { type: string }) => {
+const AuthForms = ({ type, token }: { type: string, token: string }) => {
     const [loading, setLoading] = useState(false)
     // console.log("type", type)
     const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -55,16 +70,46 @@ const AuthForms = ({ type }: { type: string }) => {
         },
     })
 
+    const forgotPasswordForm = useForm<z.infer<typeof forgotPasswordSchema>>({
+        resolver: zodResolver(forgotPasswordSchema),
+        defaultValues: {
+            email: "",
+        },
+    })
+
+    const changePasswordForm = useForm<z.infer<typeof changePasswordSchema>>({
+        resolver: zodResolver(changePasswordSchema),
+        defaultValues: {
+            password: "",
+            confirmPassword: "",
+        },
+    })
+
     const onRegisterSubmit = async (values: z.infer<typeof registerSchema>) => {
-        // setLoading(true)
-        // await register(values)
-        // setLoading(false)
-        console.log(values)
+        setLoading(true)
+        const { confirmPassword, ...rest } = values
+        await register(rest)
+        setLoading(false)
     }
 
     const onLoginSubmit = async (values: z.infer<typeof loginSchema>) => {
         setLoading(true)
         await login(values)
+        setLoading(false)
+    }
+
+    const onForgotPasswordSubmit = async (values: z.infer<typeof forgotPasswordSchema>) => {
+        console.log(values);
+
+        setLoading(true)
+        await forgotPassword(values.email)
+        setLoading(false)
+    }
+
+    const onChangePasswordSubmit = async (values: z.infer<typeof changePasswordSchema>) => {
+        setLoading(true)
+        const { password } = values
+        await changePassword(token, password)
         setLoading(false)
     }
 
@@ -199,6 +244,42 @@ const AuthForms = ({ type }: { type: string }) => {
         }
     ]
 
+    const forgotPasswordFormSchema = [
+        {
+            isWatch: false,
+            isGroup: false,
+            control: loginForm.control,
+            name: "email",
+            renderItem: "input",
+            label: "Email",
+            placeholder: "email",
+            type: "email",
+        },
+    ]
+
+    const changePasswordFormSchema = [
+        {
+            isWatch: false,
+            control: changePasswordForm.control,
+            isGroup: false,
+            name: "password",
+            renderItem: "input",
+            label: "Password",
+            placeholder: "password",
+            type: "password",
+        },
+        {
+            isWatch: false,
+            control: changePasswordForm.control,
+            isGroup: false,
+            name: "confirm password",
+            renderItem: "input",
+            label: "Confirm Password",
+            placeholder: "confirm password",
+            type: "password",
+        }
+    ]
+
     switch (type) {
         case "register":
             return (
@@ -214,11 +295,33 @@ const AuthForms = ({ type }: { type: string }) => {
                 <Form {...loginForm}>
                     <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
                         <CustomForm schema={loginFormSchema} />
-                        <div className='flex justify-start items-center gap-4 mt-4'>
+                        <div className='flex justify-start flex-wrap items-center gap-4 mt-4'>
                             <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
                             <Button asChild variant="ghost">
                                 <Link href={'/auth?type=forgot-password'} className='cursor-pointer'>Forgot Password ?</Link>
                             </Button>
+                        </div>
+                    </form>
+                </Form>
+            )
+        case "forgotPassword":
+            return (
+                <Form {...forgotPasswordForm}>
+                    <form onSubmit={loginForm.handleSubmit(onForgotPasswordSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
+                        <CustomForm schema={forgotPasswordFormSchema} />
+                        <div className='flex justify-start flex-wrap items-center gap-4 mt-4'>
+                            <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+                        </div>
+                    </form>
+                </Form>
+            )
+        case "changePassword":
+            return (
+                <Form {...changePasswordForm}>
+                    <form onSubmit={changePasswordForm.handleSubmit(onChangePasswordSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
+                        <CustomForm schema={changePasswordFormSchema} />
+                        <div className='flex justify-start flex-wrap items-center gap-4 mt-4'>
+                            <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
                         </div>
                     </form>
                 </Form>
@@ -262,7 +365,7 @@ const CustomFormField = ({
     return (
         <>
             {formFields?.isGroup ?
-                <div className="flex w-full flex-nowrap item-center justify-start gap-3">
+                <div className="flex w-full flex-nowrap item-center justify-start gap-3 flex-col sm:flex-row">
                     {formFields?.groupItems?.map((item: any, index: any) => (
                         <FormField
                             key={index}
