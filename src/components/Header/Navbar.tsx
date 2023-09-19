@@ -25,20 +25,12 @@ const Navbar = async () => {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-<<<<<<< Updated upstream
-                            <img src={user?.pfp || "/assets/no_profile.png"} />
-=======
                             <img src={user?.pfp || "/assets/no_profile.png"} alt={user?.username || "Profile Picture"} />
->>>>>>> Stashed changes
                             {/* <img src={"/assets/no_profile.png"} /> */}
                         </div>
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52">
-<<<<<<< Updated upstream
                         <UserButton user={user} accessToken={accessToken!}/>
-=======
-                        <UserButton accessToken={accessToken!} user={user} />
->>>>>>> Stashed changes
                     </ul>
                 </div>
             </div>
