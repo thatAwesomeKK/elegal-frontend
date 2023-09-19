@@ -1,4 +1,4 @@
-import AuthForms from "@/components/Forms/authForms";
+import AuthForms from "@/components/Forms/AuthForms";
 import {
     Tabs,
     TabsList,
