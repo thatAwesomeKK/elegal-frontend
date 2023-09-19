@@ -22,8 +22,8 @@ export default function RootLayout({
         <AuthProvider>
           <ToastProviders>
             <Header />
-            {contactModal}
             {children}
+            {contactModal}
           </ToastProviders>
         </AuthProvider>
       </body>

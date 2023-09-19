@@ -12,7 +12,7 @@ interface PageProps {
         authType: string
     },
     searchParams: {
-        token: string
+        token?: string | null
     }
 }
 
@@ -57,7 +57,7 @@ const page = ({ params: { authType }, searchParams: { token } }: PageProps) => {
                 }
                 {authType === "change-password" &&
                     <TabsContent value={"change-password"} className='w-full'>
-                        <AuthForms type={"changePassword"} token={token} />
+                        <AuthForms type={"changePassword"} token={token!} />
                     </TabsContent>
                 }
             </Tabs>
