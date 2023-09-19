@@ -19,6 +19,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname.startsWith("/profile") && !accessToken) {
+    console.log("middleware: redirecting to /profile");
+    console.log(origin);
+    return NextResponse.redirect(`${origin}/auth?type=login`);
+  }
+
   return NextResponse.next();
 }
 
