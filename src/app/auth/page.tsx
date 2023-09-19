@@ -28,8 +28,8 @@ const page = ({
     return (
         <section className='flex justify-center items-center mt-[80px]'>
             <Tabs
-                className='min-w-[472px] rounded-lg'
-                defaultValue={searchParams?.type !== "forgot-password" ? searchParams?.type as string || "register" : "forgotPassword"}>
+                className='min-w-[472px] h-max rounded-lg'
+                defaultValue={type !== "forgot-password" ? type as string || "register" : "forgotPassword"}>
                 <TabsList className='w-full'>
                     {type !== "forgot-password" ? (<>
                         <TabsTrigger className='w-full' value='login'>Login</TabsTrigger>
@@ -38,7 +38,7 @@ const page = ({
                         <TabsTrigger className='w-full' value='forgotPassword'>Forgot Password</TabsTrigger>
                     )}
                 </TabsList>
-                {type !== "" ? (<>
+                {type !== "forgot-password" ? (<>
                     <TabsContent value={"register"} className='w-full'>
                         <AuthForms type={"register"} />
                     </TabsContent>

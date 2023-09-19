@@ -13,6 +13,7 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 import { specializations, type as serviceProvider } from '@/lib/utils'
 import { InputWithIcon } from '../ui/CustomShadcn/InputWithIcon'
 import ComboBox from '../ui/CustomShadcn/ComboBox'
+import Link from 'next/link'
 
 const registerSchema = z.object({
     username: z.string().min(4).max(50),
@@ -172,15 +173,29 @@ const AuthForms = ({ type }: { type: string }) => {
                     type: "text",
                 }
             ]
-        },
+        }
+    ]
+
+    const loginFormSchema = [
         {
             isWatch: false,
             isGroup: false,
-            type: "submit",
-            disabled: loading,
-            renderItem: "button",
-            label: "Submit",
-            name: "submit"
+            control: loginForm.control,
+            name: "email",
+            renderItem: "input",
+            label: "Email",
+            placeholder: "email",
+            type: "email",
+        },
+        {
+            isWatch: false,
+            control: loginForm.control,
+            isGroup: false,
+            name: "password",
+            renderItem: "input",
+            label: "Password",
+            placeholder: "password",
+            type: "password",
         }
     ]
 
@@ -188,8 +203,9 @@ const AuthForms = ({ type }: { type: string }) => {
         case "register":
             return (
                 <Form {...registerForm}>
-                    <form onSubmit={registerForm.handleSubmit(onRegisterSubmit)} className="w-full shadow-lg rounded-lg bg-white p-5 space-y-2">
+                    <form onSubmit={registerForm.handleSubmit(onRegisterSubmit)} className="w-full shadow-lg rounded-lg bg-white px-5 pb-5 pt-3">
                         <CustomForm schema={registerFormSchema} />
+                        <Button disabled={loading} className='active:scale-105 mt-3' type="submit">Submit</Button>
                     </form>
                 </Form>
             )
@@ -197,7 +213,13 @@ const AuthForms = ({ type }: { type: string }) => {
             return (
                 <Form {...loginForm}>
                     <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
-                        {/* {children} */}
+                        <CustomForm schema={loginFormSchema} />
+                        <div className='flex justify-start items-center gap-4 mt-4'>
+                            <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+                            <Button asChild variant="ghost">
+                                <Link href={'/auth?type=forgot-password'} className='cursor-pointer'>Forgot Password ?</Link>
+                            </Button>
+                        </div>
                     </form>
                 </Form>
             )
@@ -247,8 +269,8 @@ const CustomFormField = ({
                             control={formFields?.control}
                             name={item?.name as string || ""}
                             render={({ field }) => (
-                                <FormItem className={`${formFields?.renderItem === "comboBox" ? "inline-flex" : "w-full"}`}>
-                                    {item.label && formFields.renderItem !== "button" &&<FormLabel>{item.label}</FormLabel>}
+                                <FormItem className={`mt-2 ${formFields?.renderItem === "comboBox" ? "inline-flex" : "w-full"}`}>
+                                    {item.label && formFields.renderItem !== "button" && <FormLabel>{item.label}</FormLabel>}
                                     <FormControl>
                                         <CustomFormControl controlItems={item} field={field} form={form} />
                                     </FormControl>
@@ -264,7 +286,7 @@ const CustomFormField = ({
                         control={formFields?.control}
                         name={formFields?.name as string || ""}
                         render={({ field }) => (
-                            <FormItem className={` ${formFields?.renderItem === "comboBox" ? "inline-flex" :"w-full"}`}>
+                            <FormItem className={`mt-2 ${formFields?.renderItem === "comboBox" ? "inline-flex" : "w-full"}`}>
                                 {formFields.label && formFields.renderItem !== "button" && <FormLabel>{formFields?.label}</FormLabel>}
                                 <FormControl>
                                     <CustomFormControl controlItems={formFields} field={field} form={form} />
@@ -314,10 +336,6 @@ const CustomFormControl = (
                     array={controlItems?.array}
                     name={controlItems?.name}
                 />
-            )
-        case "button":
-            return (
-                <Button disabled={controlItems?.disabled} className='active:scale-105' type={controlItems?.type}>{controlItems?.label}</Button>
             )
     }
 }

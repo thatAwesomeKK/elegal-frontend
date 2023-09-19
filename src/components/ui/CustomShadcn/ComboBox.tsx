@@ -11,7 +11,7 @@ const ComboBox = ({ form, field, array, name }: any) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <Popover open={isOpen} onOpenChange={setIsOpen}>
-            <PopoverTrigger asChild className='mx-2'>
+            <PopoverTrigger asChild className='mx-2 whitespace-nowrap'>
                 <FormControl>
                     <Button
                         variant="outline"
