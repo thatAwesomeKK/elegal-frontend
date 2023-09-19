@@ -1,11 +1,8 @@
-import RegisterForm from '@/components/Forms/RegisterForm'
-import React from 'react'
-
+import { redirect } from 'next/navigation'
 const Register = () => {
+    redirect('/auth?type=register')
     return (
-        <section className='flex justify-center items-center h-[93.5vh] bg-gray-200'>
-            <RegisterForm />
-        </section>
+        <></>
     )
 }
 
