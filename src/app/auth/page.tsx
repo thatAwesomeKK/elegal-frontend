@@ -30,7 +30,7 @@ const page = ({
         <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]'>
             <Tabs
                 className='w-full sm:w-[472px] h-max rounded-lg'
-                defaultValue={type}>
+                defaultValue={type as string || "login"}>
                 <TabsList className='w-full'>
                     {(type === "login" || type === 'register') && (
                         <>
