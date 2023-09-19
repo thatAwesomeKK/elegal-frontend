@@ -49,7 +49,7 @@ const changePasswordSchema = z.object({
 })
 
 
-const AuthForms = ({ type, token }: { type: string, token: string }) => {
+const AuthForms = ({ type, token }: { type: string, token?: string }) => {
     const [loading, setLoading] = useState(false)
     // console.log("type", type)
     const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -109,7 +109,7 @@ const AuthForms = ({ type, token }: { type: string, token: string }) => {
     const onChangePasswordSubmit = async (values: z.infer<typeof changePasswordSchema>) => {
         setLoading(true)
         const { password } = values
-        await changePassword(token, password)
+        await changePassword(token as string, password)
         setLoading(false)
     }
 
@@ -309,8 +309,11 @@ const AuthForms = ({ type, token }: { type: string, token: string }) => {
                 <Form {...forgotPasswordForm}>
                     <form onSubmit={loginForm.handleSubmit(onForgotPasswordSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
                         <CustomForm schema={forgotPasswordFormSchema} />
-                        <div className='flex justify-start flex-wrap items-center gap-4 mt-4'>
+                        <div className='flex justify-start flex-wrap items-center gap-2 mt-4'>
                             <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+                            <Button asChild variant={"ghost"}>
+                                <Link href={'/auth?type=login'} className='cursor-pointer'>Login</Link>
+                            </Button>
                         </div>
                     </form>
                 </Form>

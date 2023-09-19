@@ -24,6 +24,7 @@ const page = ({
 }: pageType) => {
 
     let type = searchParams?.type as string || "register";
+    let token = searchParams?.token as string || "";
     console.log(type)
     return (
         <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]'>
@@ -33,11 +34,11 @@ const page = ({
                 <TabsList className='w-full'>
                     {(type === "login" || type === 'register') && (
                         <>
-                        {console.log("coming")}
+                            {console.log("coming")}
                             <TabsTrigger className='w-full' value='login'>Login</TabsTrigger>
                             <TabsTrigger className='w-full' value='register'>Register</TabsTrigger>
                         </>
-                    )}  
+                    )}
                     {type === "forgot-password" && (
                         <TabsTrigger className='w-full' value='forgot-password'>Forgot Password</TabsTrigger>
                     )}
@@ -62,7 +63,7 @@ const page = ({
                 }
                 {type === "change-password" &&
                     <TabsContent value={"change-password"} className='w-full'>
-                        <AuthForms type={"changePassword"} />
+                        <AuthForms type={"changePassword"} token={token} />
                     </TabsContent>
                 }
             </Tabs>
