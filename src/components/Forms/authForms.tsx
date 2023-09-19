@@ -9,10 +9,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
-import { ComboBoxOnForm } from '../ui/CustomShadcn/ComboBoxOnForm'
+
 import { specializations, type as serviceProvider } from '@/lib/utils'
 import { InputWithIcon } from '../ui/CustomShadcn/InputWithIcon'
-import { Label } from '../ui/label'
 import ComboBox from '../ui/CustomShadcn/ComboBox'
 
 const registerSchema = z.object({
@@ -278,7 +277,6 @@ const CustomFormField = ({
     )
 }
 
-
 const CustomFormControl = (
     { controlItems, field, form }: { controlItems: any, field: any, form?: any }
 ) => {
@@ -323,6 +321,5 @@ const CustomFormControl = (
             )
     }
 }
-
 
 export default AuthForms

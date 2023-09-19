@@ -1,4 +1,3 @@
-import React from 'react'
 import LoginForm from '@/components/Forms/LoginForm'
 import RegisterForm from '@/components/Forms/RegisterForm'
 import ForgotPasswordForm from '@/components/Forms/ForgotPasswordForm'
@@ -24,24 +23,33 @@ const page = ({
     searchParams
 }: pageType) => {
 
-    console.log(searchParams)
-
-
+    let type = searchParams?.type as string || "register";
 
     return (
-        <section className='flex justify-center items-center h-[93.5vh] bg-gray-200'>
-            <Tabs defaultValue={searchParams?.type ? searchParams?.type as string : "register"}>
+        <section className='flex justify-center items-center mt-[80px]'>
+            <Tabs
+                className='min-w-[472px] rounded-lg'
+                defaultValue={searchParams?.type !== "forgot-password" ? searchParams?.type as string || "register" : "forgotPassword"}>
                 <TabsList className='w-full'>
-                    <TabsTrigger className='w-full' value='login'>Login</TabsTrigger>
-                    <TabsTrigger className='w-full' value='register'>Register</TabsTrigger>
+                    {type !== "forgot-password" ? (<>
+                        <TabsTrigger className='w-full' value='login'>Login</TabsTrigger>
+                        <TabsTrigger className='w-full' value='register'>Register</TabsTrigger>
+                    </>) : (
+                        <TabsTrigger className='w-full' value='forgotPassword'>Forgot Password</TabsTrigger>
+                    )}
                 </TabsList>
-                <TabsContent value={"register"}>
-                    {/* <RegisterForm /> */}
-                    <AuthForms type={searchParams?.type as string} />
-                </TabsContent>
-                <TabsContent value={"login"}>
-                    <LoginForm />
-                </TabsContent>
+                {type !== "" ? (<>
+                    <TabsContent value={"register"} className='w-full'>
+                        <AuthForms type={"register"} />
+                    </TabsContent>
+                    <TabsContent value={"login"} className='w-full'>
+                        <AuthForms type={"login"} />
+                    </TabsContent>
+                </>) : (
+                    <TabsContent value={"forgotPassword"} className='w-full'>
+                        <AuthForms type={"forgotPassword"} />
+                    </TabsContent>
+                )}
             </Tabs>
         </section>
     )
