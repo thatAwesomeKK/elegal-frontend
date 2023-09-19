@@ -4,7 +4,7 @@ import {
     TabsTrigger,
     TabsContent
 } from "@/components/ui/tabs";
-import AuthForms from '@/components/Forms/authForms';
+import AuthForms from "@/components/Forms/AuthForms";
 import { redirect } from 'next/navigation';
 
 type pageType = {
