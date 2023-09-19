@@ -5,14 +5,13 @@ import * as z from "zod"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { register, login, forgotPassword, changePassword } from '@/lib/apiCalls/auth'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Form } from '../ui/form'
 import { Button } from '../ui/button'
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 
 import { specializations, type as serviceProvider } from '@/lib/utils'
-import { InputWithIcon } from '../ui/CustomShadcn/InputWithIcon'
-import ComboBox from '../ui/CustomShadcn/ComboBox'
+
 import Link from 'next/link'
+import CustomForm from './CustomFormComponents/CustomForm'
 
 const registerSchema = z.object({
     username: z.string().min(4).max(50),
@@ -50,7 +49,6 @@ const changePasswordSchema = z.object({
 
 const AuthForm = ({ type, token }: { type: string, token?: string }) => {
     const [loading, setLoading] = useState(false)
-    // console.log("type", type)
     const registerForm = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -102,8 +100,6 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
     }
 
     const onForgotPasswordSubmit = async (values: z.infer<typeof forgotPasswordSchema>) => {
-        console.log(values);
-
         setLoading(true)
         await forgotPassword(values.email)
         // reset form
@@ -136,7 +132,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "username",
             renderItem: "input",
             label: "Username",
-            placeholder: "username",
+            placeholder: "Username",
             type: "text",
         },
         {
@@ -146,7 +142,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "email",
             renderItem: "input",
             label: "Email",
-            placeholder: "email",
+            placeholder: "Email",
             type: "email",
         },
         {
@@ -158,14 +154,14 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
                     name: "password",
                     renderItem: "input",
                     label: "Password",
-                    placeholder: "password",
+                    placeholder: "Password",
                     type: "password",
                 },
                 {
                     name: "confirmPassword",
                     renderItem: "input",
                     label: "Confirm Password",
-                    placeholder: "confirm password",
+                    placeholder: "Confirm Password",
                     type: "password",
                 }
             ],
@@ -177,7 +173,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "role",
             renderItem: "radioGroup",
             label: "Role",
-            placeholder: "role",
+            placeholder: "Role",
             type: "radio",
             radioItems: [{
                 label: "Buyer",
@@ -221,12 +217,13 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
                     name: "licenseId",
                     renderItem: "input",
                     label: "License ID",
-                    placeholder: "licenseId",
+                    placeholder: "LicenseId",
                     type: "text",
                 }
             ]
         }
     ]
+
 
     const loginFormSchema = [
         {
@@ -236,7 +233,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "email",
             renderItem: "input",
             label: "Email",
-            placeholder: "email",
+            placeholder: "Email",
             type: "email",
         },
         {
@@ -246,7 +243,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "password",
             renderItem: "input",
             label: "Password",
-            placeholder: "password",
+            placeholder: "Password",
             type: "password",
         }
     ]
@@ -259,7 +256,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "email",
             renderItem: "input",
             label: "Email",
-            placeholder: "email",
+            placeholder: "Email",
             type: "email",
         },
     ]
@@ -272,7 +269,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "password",
             renderItem: "input",
             label: "Password",
-            placeholder: "password",
+            placeholder: "Password",
             type: "password",
         },
         {
@@ -282,7 +279,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
             name: "confirm password",
             renderItem: "input",
             label: "Confirm Password",
-            placeholder: "confirm password",
+            placeholder: "Confirm Password",
             type: "password",
         }
     ]
@@ -349,116 +346,6 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
         default:
             return (
                 <></>
-            )
-    }
-}
-
-const CustomForm = ({ schema }: { schema: any }) => {
-    return (
-        schema?.map((item: any, index: any) => (
-            item?.isWatch ?
-                <CustomWatchField key={index} watchItem={item} /> :
-                <CustomFormField
-                    key={index}
-                    formFields={item}
-                />
-
-        )))
-}
-
-const CustomWatchField = ({ watchItem }: { watchItem: any }) => {
-    return (
-        watchItem.form.watch(watchItem.watch) === watchItem.watchValue && watchItem.watchItems.map((item: any, index: any) => (
-            item.isWatch ? <CustomWatchField key={index} watchItem={item} /> :
-                <CustomFormField
-                    key={index}
-                    form={watchItem?.form}
-                    formFields={item}
-                />
-        )))
-}
-
-const CustomFormField = ({
-    formFields,
-    form
-}: { formFields: any, form?: any }) => {
-    return (
-        <>
-            {formFields?.isGroup ?
-                <div className="flex w-full flex-nowrap item-center justify-start gap-3 flex-col sm:flex-row">
-                    {formFields?.groupItems?.map((item: any, index: any) => (
-                        <FormField
-                            key={index}
-                            control={formFields?.control}
-                            name={item?.name as string || ""}
-                            render={({ field }) => (
-                                <FormItem className={`mt-2 ${formFields?.renderItem === "comboBox" ? "inline-flex" : "w-full"}`}>
-                                    {item.label && formFields.renderItem !== "button" && <FormLabel>{item.label}</FormLabel>}
-                                    <FormControl>
-                                        <CustomFormControl controlItems={item} field={field} form={form} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    ))
-                    }
-                </div>
-                : (
-                    <FormField
-                        control={formFields?.control}
-                        name={formFields?.name as string || ""}
-                        render={({ field }) => (
-                            <FormItem className={`mt-2 ${formFields?.renderItem === "comboBox" ? "inline-flex" : "w-full"}`}>
-                                {formFields.label && formFields.renderItem !== "button" && <FormLabel>{formFields?.label}</FormLabel>}
-                                <FormControl>
-                                    <CustomFormControl controlItems={formFields} field={field} form={form} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />)}
-        </>
-    )
-}
-
-const CustomFormControl = (
-    { controlItems, field, form }: { controlItems: any, field: any, form?: any }
-) => {
-    switch (controlItems?.renderItem) {
-        case "input":
-            return (
-                <InputWithIcon placeholder={controlItems?.placeholder || 'ok'} type={controlItems?.type || "ok"} {...field} />
-            )
-        case "radioGroup":
-            return (
-                <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="flex flex-nowrap"
-                >
-                    {
-                        controlItems?.radioItems.map((item: any, index: number) => (
-                            <FormItem className="flex items-center gap-2 m-0 space-y-0" key={index}>
-                                <FormControl>
-                                    <RadioGroupItem id={item.value} value={item.value} className='mt-[2px]' />
-                                </FormControl>
-                                <FormLabel htmlFor={item.value} className="font-normal cursor-pointer m-0">
-                                    {item.label}
-                                </FormLabel>
-                            </FormItem>
-                        ))
-                    }
-                </RadioGroup>
-            )
-        case "comboBox":
-            return (
-                <ComboBox
-                    form={form}
-                    field={field}
-                    array={controlItems?.array}
-                    name={controlItems?.name}
-                />
             )
     }
 }

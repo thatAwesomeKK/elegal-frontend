@@ -130,7 +130,7 @@ const UpdatePersonalUserForm = ({ user, accessToken }: PageProps) => {
                     )}
                 />
                 {state && <ComboBoxOnForm form={form} array={state} name={"state"} />}
-                {city && <ComboBoxOnForm form={form} array={city} name={"city"} />}
+                {city && form.watch("state") && <ComboBoxOnForm form={form} array={city} name={"city"} />}
                 <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
             </form>
         </Form>

@@ -35,7 +35,6 @@ const page = ({
                 <TabsList className='w-full'>
                     {(type === "login" || type === 'register') && (
                         <>
-                            {console.log("coming")}
                             <TabsTrigger className='w-full' value='login'>Login</TabsTrigger>
                             <TabsTrigger className='w-full' value='register'>Register</TabsTrigger>
                         </>

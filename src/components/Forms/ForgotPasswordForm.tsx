@@ -23,8 +23,6 @@ const ForgotPasswordForm = () => {
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
-        
         setLoading(true)
         await forgotPassword(values.email)
         setLoading(false)

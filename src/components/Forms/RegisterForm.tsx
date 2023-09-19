@@ -37,10 +37,10 @@ const RegisterForm = () => {
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        // setLoading(true)
-        // await register(values)
-        // setLoading(false)
-        console.log(values)
+        setLoading(true)
+        await register(values)
+        setLoading(false)
+        
     }
 
     useEffect(() => {

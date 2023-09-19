@@ -26,7 +26,6 @@ const ContactUsForm = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
-        console.log(values);
         setLoading(false)
     }
     return (

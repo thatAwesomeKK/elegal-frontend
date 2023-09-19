@@ -6,12 +6,9 @@ export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
 
   if (pathname.startsWith("/auth") && !accessToken) {
-    console.log("middleware: redirecting to /auth/login");
     return NextResponse.next();
   }
   if (pathname.startsWith("/auth") && accessToken) {
-    console.log("middleware: redirecting to /profile");
-    console.log(origin);
     return NextResponse.redirect(`${origin}/profile/dashboard`);
   }
 
@@ -20,8 +17,6 @@ export function middleware(request: NextRequest) {
   }
 
   if (pathname.startsWith("/profile") && !accessToken) {
-    console.log("middleware: redirecting to /profile");
-    console.log(origin);
     return NextResponse.redirect(`${origin}/auth?type=login`);
   }
 

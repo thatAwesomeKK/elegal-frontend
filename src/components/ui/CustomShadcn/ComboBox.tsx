@@ -22,7 +22,7 @@ const ComboBox = ({ form, field, array, name }: any) => {
                         )}
                     >
                         {field.value
-                            ? array.find(
+                            ? array?.find(
                                 (arr: any) => arr.value === field.value
                             )?.label
                             : `Select ${name}`}
@@ -35,7 +35,7 @@ const ComboBox = ({ form, field, array, name }: any) => {
                     <CommandInput className='capitalize' placeholder={`Search ${name}`} />
                     <CommandEmpty className='capitalize'>{`No ${name} Found`}</CommandEmpty>
                     <CommandGroup className='overflow-y-scroll h-96'>
-                        {array.map((arr: any) => (
+                        {array?.map((arr: any) => (
                             <CommandItem
                                 value={arr.label}
                                 key={arr.value}
