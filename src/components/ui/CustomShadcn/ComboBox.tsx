@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from '../popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '../command'
 import { cn } from '@/lib/utils'
@@ -17,7 +17,7 @@ const ComboBox = ({ form, field, array, name }: any) => {
                         variant="outline"
                         role="combobox"
                         className={cn(
-                            "w-[200px] justify-between capitalize",
+                            "min-w-[200px] w-max justify-between capitalize",
                             !field.value && "text-muted-foreground"
                         )}
                     >
@@ -33,8 +33,12 @@ const ComboBox = ({ form, field, array, name }: any) => {
             <PopoverContent className="w-[200px] p-0">
                 <Command>
                     <CommandInput className='capitalize' placeholder={`Search ${name}`} />
-                    <CommandEmpty className='capitalize'>{`No ${name} Found`}</CommandEmpty>
-                    <CommandGroup className='overflow-y-scroll h-96'>
+                    <CommandEmpty className='relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' onSelect={() => {
+                        setIsOpen(false)
+                    }}>
+                        {`No ${name} Found`}
+                    </CommandEmpty>
+                    <CommandGroup className='overflow-y-scroll max-h-[250px]'>
                         {array?.map((arr: any) => (
                             <CommandItem
                                 value={arr.label}

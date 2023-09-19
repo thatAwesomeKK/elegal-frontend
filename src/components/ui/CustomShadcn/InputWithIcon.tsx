@@ -21,7 +21,7 @@ const InputWithIcon = React.forwardRef<HTMLInputElement, InputProps>(
                 className
             )}>
                 <input
-                    type={!showPassword ? type: "text"}
+                    type={!showPassword ? type : "text"}
                     placeholder={placeholder}
                     className="w-full bg-transparent outline-none text-sm font-medium placeholder-text-muted-foreground"
                     ref={ref}
