@@ -77,7 +77,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
                         <li className='step step-success'>Service Provider Assigned</li>
                         <li className='step step-success'>Paid</li>
                         <li className='step step-success'>Completed</li>
-                        {user && (user?.role === "buyer" ? <li className='step step-success'>Recieved</li> : <li className='step step-success'>Delivered</li>)}
+                        {user?.role === "buyer" ? <li className='step step-success'>Recieved</li> : <li className='step step-success'>Delivered</li>}
                     </ul>}
                 </div>
             </section>

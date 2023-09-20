@@ -1,11 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Lilita_One } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-
-const lilitaOne = Lilita_One({ subsets: ['latin'], weight: '400' })
 
 interface PageProps {
     image: string

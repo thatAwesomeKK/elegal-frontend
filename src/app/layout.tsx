@@ -3,6 +3,9 @@ import './globals.css'
 import type { Metadata } from 'next'
 import AuthProvider from './(Providers)/AuthProvider'
 import ToastProviders from './(Providers)/ToastProvider'
+import { Mooli } from 'next/font/google'
+
+const mooli = Mooli({ subsets: ['latin', 'latin-ext'], weight: ['400'], preload: true })
 
 export const metadata: Metadata = {
   title: 'E-Legal',
@@ -18,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={mooli.className}>
         <AuthProvider>
           <ToastProviders>
             <Header />
