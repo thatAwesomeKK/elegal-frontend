@@ -168,6 +168,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     } else if (mediatorForm.watch("state")) {
       state = mediatorForm.watch("state")
     }
+    console.log("state", state)
     const arr: any = [];
     const cities = City.getCitiesOfState("IN", state)
     cities.forEach(city => {
@@ -245,7 +246,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: notaryForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -253,7 +254,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: notaryForm,
       watch: "state",
       watchValue: "",
       watchItems: [
@@ -289,7 +290,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: documentWriterForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -297,7 +298,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: documentWriterForm,
       watch: "state",
       watchValue: "",
       watchItems: [
@@ -333,7 +334,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: arbitratorForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -341,7 +342,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: arbitratorForm,
       watch: "state",
       watchValue: "",
       watchItems: [
@@ -377,7 +378,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: mediatorForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -385,7 +386,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: mediatorForm,
       watch: "state",
       watchValue: "",
       watchItems: [
