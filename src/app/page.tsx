@@ -9,7 +9,7 @@ export default async function Home() {
       <hr className="border-1 border-gray-300" />
       <CheckUserRoleService />
       <hr className="border-1 border-gray-300" />
-      <Feedbacks />
+        <Feedbacks />
       <hr className="border-1 border-gray-300" />
     </main>
   )

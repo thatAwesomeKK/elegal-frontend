@@ -38,8 +38,6 @@ const services = [
 ]
 
 const Services = async ({ params: { serviceType } }: PageProps) => {
-    console.log(serviceType);
-
     const cookieStore = cookies()
     const accessToken = cookieStore.get('accessToken')?.value
     return (

@@ -12,14 +12,6 @@ const Dashboard = async () => {
     const user = await getProfile(accessToken!)
     return (
         <main className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]'>
-            {/* <Tabs defaultValue="personal" className="w-[70%] flex flex-col justify-center items-center">
-                <TabsList className='w-[90%]'>
-                    <TabsTrigger className='w-1/2' value="personal">Personal</TabsTrigger>
-                    <TabsTrigger className='w-1/2' value="professional">Professional</TabsTrigger>
-                </TabsList>
-                <TabsContent className='w-[90%]' value="personal"><UpdatePersonalUserForm user={user} accessToken={accessToken!} /></TabsContent>
-                <TabsContent className='w-[90%]' value="professional"><UpdateProfessionalUserForm user={user} accessToken={accessToken!} /></TabsContent>
-            </Tabs> */}
             <section className='w-full sm:w-[700px] h-max'>
                 <ProfileForm user={user} accessToken={accessToken!} />
             </section>
