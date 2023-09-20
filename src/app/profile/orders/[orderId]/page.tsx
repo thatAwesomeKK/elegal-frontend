@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { fetchServiceWithId } from '@/lib/apiCalls/service'
-import { Service } from '@/lib/typings'
+import { Service, User } from '@/lib/typings'
 import { cookies } from 'next/headers'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
 import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
@@ -20,23 +20,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
 
     const user = store.getState().user.user
 
-    const checkLife = (stage: string) => {
-        if (service.life === 'created' && stage === 'created')
-            return true
 
-        if (service.life === 'assigned' && (stage === 'assigned' || stage === 'created'))
-            return true
-
-        if (service.life === 'paid' && (stage === 'paid' || stage === 'assigned' || stage === 'created'))
-            return true
-
-        if (service.life === 'completed' && (stage === 'completed' || stage === 'paid' || stage === 'assigned' || stage === 'created'))
-            return true
-
-        if (service.life === 'received' && (stage === 'received' || stage === 'completed' || stage === 'paid' || stage === 'assigned' || stage === 'created'))
-            return true
-        return false
-    }
 
     return (
         <main className='max-w-7xl mx-auto flex flex-row justify-center items-center h-[93.5vh]'>
@@ -67,24 +51,55 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
                         </> : (<p className='text-red-500 font-semibold'>No Service Provider Assigned</p>)}
                     </div>
                     <ActionButtons user={user} accessToken={accessToken!} service={service} />
-                    {!checkLife('delivered') ? <ul className="steps w-full">
-                        <li className={`step ${checkLife("created") && "step-primary"}`}>Created</li>
-                        <li className={`step ${checkLife("assigned") && "step-primary"}`}>Service Provider Assigned</li>
-                        <li className={`step ${checkLife("paid") && "step-primary"}`}>Paid</li>
-                        <li className={`step ${checkLife("completed") && "step-primary"}`}>Completed</li>
-                        {user?.role === "buyer" && <li className={`step ${checkLife("received") && "step-primary"}`}>Recieved</li>}
-                        {user?.role === "service-provider" && <li className={`step ${checkLife("received") && "step-primary"}`}>Delivered</li>}
-                    </ul> : <ul className="steps w-full">
-                        <li className='step step-success'>Created</li>
-                        <li className='step step-success'>Service Provider Assigned</li>
-                        <li className='step step-success'>Paid</li>
-                        <li className='step step-success'>Completed</li>
-                        {user?.role === "buyer" ? <li className='step step-success'>Recieved</li> : <li className='step step-success'>Delivered</li>}
-                    </ul>}
+                    <Suspense fallback={<div>Loading....</div>}>
+                    <Progress user={user} service={service} />
+                    </Suspense>
                 </div>
             </section>
         </main>
     )
 }
+
+interface Props {
+    user: User
+    service: Service
+}
+
+const Progress = ({ user, service }: Props) => {
+    const checkLife = (stage: string) => {
+        if (service.life === 'created' && stage === 'created')
+            return true
+
+        if (service.life === 'assigned' && (stage === 'assigned' || stage === 'created'))
+            return true
+
+        if (service.life === 'paid' && (stage === 'paid' || stage === 'assigned' || stage === 'created'))
+            return true
+
+        if (service.life === 'completed' && (stage === 'completed' || stage === 'paid' || stage === 'assigned' || stage === 'created'))
+            return true
+
+        if (service.life === 'received' && (stage === 'received' || stage === 'completed' || stage === 'paid' || stage === 'assigned' || stage === 'created'))
+            return true
+        return false
+    }
+    return (
+        <>{
+            !checkLife('received') ? <ul className="steps w-full">
+                <li className={`step ${checkLife("created") && "step-primary"}`}>Created</li>
+                <li className={`step ${checkLife("assigned") && "step-primary"}`}>Service Provider Assigned</li>
+                <li className={`step ${checkLife("paid") && "step-primary"}`}>Paid</li>
+                <li className={`step ${checkLife("completed") && "step-primary"}`}>Completed</li>
+                {user?.role === "buyer" ? <li className={`step ${checkLife("received") && "step-primary"}`}>Recieved</li> : <li className={`step ${checkLife("received") && "step-primary"}`}>Delivered</li>}
+            </ul> : <ul className="steps w-full">
+                <li className='step step-success'>Created</li>
+                <li className='step step-success'>Service Provider Assigned</li>
+                <li className='step step-success'>Paid</li>
+                <li className='step step-success'>Completed</li>
+                {user?.role === "buyer" ? <li className='step step-success'>Recieved</li> : <li className='step step-success'>Delivered</li>}
+            </ul>
+        }</>)
+}
+
 
 export default OrderDetails
