@@ -28,12 +28,13 @@ const ProfileForm = ({ user, accessToken }: PageProps) => {
 
     const profileSchema = z.object({
         username: z.string().min(4).max(50),
-        first_name: z.string().min(4).max(50),
-        middle_name: z.string().optional(),
-        sur_name: z.string().min(4).max(50),
+        first_name: z.string().min(4).max(50).optional().nullable(),
+        middle_name: z.string().optional().optional().nullable(),
+        sur_name: z.string().min(4).max(50).optional().nullable(),
         email: z.string().email(),
-        state: z.string(),
-        city: z.string(),
+        phone_number: z.number().min(10).max(10).optional().nullable(),
+        state: z.string().nullable(),
+        city: z.string().nullable(),
         type: z.string().optional().nullable(),
         specialization: z.string().optional().nullable(),
         role: z.enum(["buyer", "service-provider"], {
@@ -49,6 +50,7 @@ const ProfileForm = ({ user, accessToken }: PageProps) => {
             middle_name: user.middleName || "",
             email: user.email || "",
             sur_name: user.surName || "",
+            phone_number: user.phoneNumber || null,
             state: user.state || "",
             city: user.city || "",
             type: user.type || "",
@@ -68,7 +70,7 @@ const ProfileForm = ({ user, accessToken }: PageProps) => {
     }, [])
 
     useEffect(() => {
-        const state = profileForm.watch("state")
+        const state = profileForm.watch("state") as string
         const arr: any = [];
         const cities = City.getCitiesOfState("IN", state)
         cities.forEach(city => {
@@ -152,21 +154,32 @@ const ProfileForm = ({ user, accessToken }: PageProps) => {
         },
         {
             isWatch: false,
-            isGroup: false,
+            isGroup: true,
             control: profileForm.control,
-            name: "role",
-            renderItem: "radioGroup",
-            label: "Role",
-            placeholder: "role",
-            type: "radio",
-            radioItems: [{
-                label: "Buyer",
-                value: "buyer",
-            },
-            {
-                label: "Service Provider",
-                value: "service-provider"
-            }]
+            groupItems: [
+                {
+                    name: "phone_number",
+                    renderItem: "input",
+                    label: "Phone Number",
+                    placeholder: "Phone Number",
+                    type: "number",
+                },
+                {
+                    name: "role",
+                    renderItem: "radioGroup",
+                    label: "Role",
+                    placeholder: "role",
+                    type: "radio",
+                    radioItems: [{
+                        label: "Buyer",
+                        value: "buyer",
+                    },
+                    {
+                        label: "Service Provider",
+                        value: "service-provider"
+                    }]
+                }
+            ]
         },
         {
             isWatch: true,

@@ -321,7 +321,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
         case "forgotPassword":
             return (
                 <Form {...forgotPasswordForm}>
-                    <form onSubmit={loginForm.handleSubmit(onForgotPasswordSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
+                    <form onSubmit={forgotPasswordForm.handleSubmit(onForgotPasswordSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
                         <CustomForm schema={forgotPasswordFormSchema} />
                         <div className='flex justify-start flex-wrap items-center gap-2 mt-4'>
                             <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>

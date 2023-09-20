@@ -2,19 +2,27 @@ import ComboBox from "@/components/ui/CustomShadcn/ComboBox"
 import { InputWithIcon } from "@/components/ui/CustomShadcn/InputWithIcon"
 import { FormControl, FormItem, FormLabel } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-
+import { usePathname } from "next/navigation"
 function CustomFormControl({ controlItems, field, form }: {
     controlItems: any,
     field: any,
     form?: any
 }) {
-    console.log(field)
+
+    const path = usePathname()
+
+    const isDisabled = () => {
+        const isProfileUrl = path.split("/")[1] === "profile"
+        const isEmail = controlItems?.type === "email"
+        return (isProfileUrl && isEmail)
+    }
+
     switch (controlItems?.renderItem) {
         case "input":
             return (
                 <>
                     {
-                        (controlItems?.type === "email") ? (
+                        (isDisabled()) ? (
                             <>
                                 <div className="flex h-10 select-none cursor-not-allowed w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 relative font-semibold">
                                     {field.value}

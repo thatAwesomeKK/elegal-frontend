@@ -9,6 +9,7 @@ import { Button } from '../button'
 import { FormControl } from '../form'
 const ComboBox = ({ form, field, array, name }: any) => {
     const [isOpen, setIsOpen] = useState(false)
+    console.log(field)
     return (
         <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild className='mx-2 whitespace-nowrap'>
@@ -24,7 +25,7 @@ const ComboBox = ({ form, field, array, name }: any) => {
                         {field.value
                             ? array?.find(
                                 (arr: any) => arr.value === field.value
-                            )?.label
+                            )?.label || `Select ${name}`
                             : `Select ${name}`}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
