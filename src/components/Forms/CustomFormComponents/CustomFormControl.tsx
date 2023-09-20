@@ -2,6 +2,7 @@ import ComboBox from "@/components/ui/CustomShadcn/ComboBox"
 import { InputWithIcon } from "@/components/ui/CustomShadcn/InputWithIcon"
 import { FormControl, FormItem, FormLabel } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Textarea } from "@/components/ui/textarea"
 import { usePathname } from "next/navigation"
 function CustomFormControl({ controlItems, field, form }: {
     controlItems: any,
@@ -32,7 +33,10 @@ function CustomFormControl({ controlItems, field, form }: {
                             (<InputWithIcon placeholder={controlItems?.placeholder || 'ok'} type={controlItems?.type || "ok"}  {...field} />)
                     }
                 </>
-
+            )
+        case "textarea":
+            return (
+                <Textarea placeholder={controlItems?.placeholder}  {...field} />
             )
         case "radioGroup":
             return (

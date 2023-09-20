@@ -9,7 +9,7 @@ interface PageProps {
 function ImageSliderComp({ images }: PageProps) {
     return (
         <SimpleImageSlider
-            width={"99.1vw"}
+            width={"100%"}
             height={"70vh"}
             images={images}
             showBullets={false}

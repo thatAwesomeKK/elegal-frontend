@@ -21,10 +21,10 @@ const ComboBox = ({ form, field, array, name }: any) => {
                             !field.value && "text-muted-foreground"
                         )}
                     >
-                        {field.value
+                        {field.value !== ''
                             ? array?.find(
                                 (arr: any) => arr.value === field.value
-                            )?.label
+                            )?.label || `Select ${name}`
                             : `Select ${name}`}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>

@@ -168,6 +168,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     } else if (mediatorForm.watch("state")) {
       state = mediatorForm.watch("state")
     }
+    console.log("state", state)
     const arr: any = [];
     const cities = City.getCitiesOfState("IN", state)
     cities.forEach(city => {
@@ -225,10 +226,10 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
       isGroup: false,
       isWatch: false,
       name: "description",
-      renderItem: "input",
+      renderItem: "textarea",
       label: "Info about your Case",
       placeholder: "Tell us a little bit about your case",
-      type: "text",
+      type: "textfield",
     },
   ]
 
@@ -245,7 +246,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: notaryForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -253,7 +254,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: notaryForm,
       watch: "state",
       watchValue: "",
       watchItems: [
@@ -278,10 +279,10 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
       isGroup: false,
       isWatch: false,
       name: "description",
-      renderItem: "input",
+      renderItem: "textarea",
       label: "Info about your Notary",
       placeholder: "Tell us a little about your Notary",
-      type: "text",
+      type: "textfield",
     },
   ]
 
@@ -289,7 +290,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: documentWriterForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -297,7 +298,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: documentWriterForm,
       watch: "state",
       watchValue: "",
       watchItems: [
@@ -322,10 +323,10 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
       isGroup: false,
       isWatch: false,
       name: "description",
-      renderItem: "input",
+      renderItem: "textarea",
       label: "Info about your Document",
       placeholder: "Tell us a little about your Document",
-      type: "text",
+      type: "textfield",
     },
   ]
 
@@ -333,7 +334,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: arbitratorForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -341,7 +342,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: arbitratorForm,
       watch: "state",
       watchValue: "",
       watchItems: [
@@ -366,10 +367,10 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
       isGroup: false,
       isWatch: false,
       name: "description",
-      renderItem: "input",
+      renderItem: "textarea",
       label: "Info about your Issue",
       placeholder: "Tell us a little about your Issue",
-      type: "text",
+      type: "textfield",
     },
   ]
 
@@ -377,7 +378,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      form: advocateForm,
+      form: mediatorForm,
       name: "state",
       renderItem: "comboBox",
       array: state
@@ -385,7 +386,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isWatch: true,
       isGroup: false,
-      form: advocateForm,
+      form: mediatorForm,
       watch: "state",
       watchValue: "",
       watchItems: [
@@ -410,10 +411,10 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
       isGroup: false,
       isWatch: false,
       name: "description",
-      renderItem: "input",
+      renderItem: "textarea",
       label: "Info about your Issue",
       placeholder: "Tell us a little about your Issue",
-      type: "text",
+      type: "textfield",
     },
   ]
 
@@ -437,15 +438,10 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
         <Form {...notaryForm}>
           <form onSubmit={notaryForm.handleSubmit(onNotarySubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
             <CustomForm schema={notaryFormSchema} />
-            <div className='flex justify-between flex-wrap items-center mt-4'>
-              <div className='flex items-center gap-4'>
-                <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
-                <Button type="button" variant="ghost" onClick={() => notaryForm.reset()}>
-                  Reset
-                </Button>
-              </div>
-              <Button asChild variant="ghost">
-                <Link href={'/auth?type=forgot-password'} className='cursor-pointer'>Forgot Password ?</Link>
+            <div className='mt-3 flex gap-3'>
+              <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+              <Button type="button" variant="ghost" onClick={() => notaryForm.reset()}>
+                Reset
               </Button>
             </div>
           </form>
@@ -456,10 +452,10 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
         <Form {...documentWriterForm}>
           <form onSubmit={documentWriterForm.handleSubmit(onDocumentWriterSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
             <CustomForm schema={documentWriterFormSchema} />
-            <div className='flex justify-start flex-wrap items-center gap-2 mt-4'>
+            <div className='mt-3 flex gap-3'>
               <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
-              <Button asChild variant={"ghost"}>
-                <Link href={'/auth?type=login'} className='cursor-pointer'>Login</Link>
+              <Button type="button" variant="ghost" onClick={() => documentWriterForm.reset()}>
+                Reset
               </Button>
             </div>
           </form>
@@ -470,8 +466,11 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
         <Form {...arbitratorForm}>
           <form onSubmit={arbitratorForm.handleSubmit(onArbitratorSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
             <CustomForm schema={arbitratorFormSchema} />
-            <div className='flex justify-start flex-wrap items-center gap-4 mt-4'>
+            <div className='mt-3 flex gap-3'>
               <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+              <Button type="button" variant="ghost" onClick={() => arbitratorForm.reset()}>
+                Reset
+              </Button>
             </div>
           </form>
         </Form>
@@ -481,8 +480,11 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
         <Form {...mediatorForm}>
           <form onSubmit={mediatorForm.handleSubmit(onMediatorSubmit)} className=" w-full shadow-lg rounded-lg bg-white p-7">
             <CustomForm schema={mediatorFormSchema} />
-            <div className='flex justify-start flex-wrap items-center gap-4 mt-4'>
+            <div className='mt-3 flex gap-3'>
               <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
+              <Button type="button" variant="ghost" onClick={() => mediatorForm.reset()}>
+                Reset
+              </Button>
             </div>
           </form>
         </Form>
