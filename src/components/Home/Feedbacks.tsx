@@ -2,8 +2,8 @@ import React, { Suspense } from 'react'
 import { getFeedbacks } from '@/lib/apiCalls/feedback';
 import { Feedback } from '@/lib/typings';
 import FeedbacksContainer from './Feedbacks/FeedbacksContainer';
-import { Libre_Baskerville } from 'next/font/google'
 import FeedbackSkeleton from './Feedbacks/FeedbackSkeleton';
+import { Libre_Baskerville } from 'next/font/google'
 
 const libreBaskerville = Libre_Baskerville({ subsets: ['latin', 'latin-ext'], weight: ['400'], preload: true })
 

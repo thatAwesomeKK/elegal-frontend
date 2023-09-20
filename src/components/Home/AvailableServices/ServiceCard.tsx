@@ -20,7 +20,7 @@ const ServiceCard = ({ service }: PageProps) => {
                     <p className='font-medium text-gray-600'>{service.description}</p>
                 </CardContent>
                 <CardFooter>
-                    <Link href={`/service/${service._id}`} className='active:scale-105'>More Details</Link>
+                    <Link href={`/service/${service._id}`} className='bg-blue-500 py-3 px-4 rounded-md w-full text-center active:bg-blue-500 hover:bg-blue-400'>More Details</Link>
                 </CardFooter>
             </Card>
         </>

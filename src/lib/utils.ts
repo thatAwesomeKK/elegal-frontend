@@ -20,7 +20,7 @@ export const specializations = [
 ] as const
 
 export const type = [
-  { label: "Notaries", value: "notaries" },
+  { label: "Notaries", value: "notary" },
   { label: "Arbitrators", value: "arbitrators" },
   { label: "Mediators", value: "mediators" },
   { label: "Document Writer", value: "document-writer" },
