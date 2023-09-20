@@ -40,6 +40,7 @@ const RegisterForm = () => {
         setLoading(true)
         await register(values)
         setLoading(false)
+        
     }
 
     useEffect(() => {
@@ -53,7 +54,7 @@ const RegisterForm = () => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-4/12 shadow-lg rounded-lg bg-white p-7">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full shadow-lg rounded-lg bg-white p-7">
                 <FormField
                     control={form.control}
                     name="username"
@@ -99,29 +100,30 @@ const RegisterForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Role</FormLabel>
-                            <FormControl></FormControl>
-                            <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="flex flex-col space-y-1"
-                            >
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                        <RadioGroupItem value="buyer" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                        Buyer
-                                    </FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                        <RadioGroupItem value="service-provider" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                        Service Provider
-                                    </FormLabel>
-                                </FormItem>
-                            </RadioGroup>
+                            <FormControl>
+                                <RadioGroup
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                    className="flex flex-col space-y-1"
+                                >
+                                    <FormItem className="flex items-center space-x-3 space-y-0">
+                                        <FormControl>
+                                            <RadioGroupItem value="buyer" />
+                                        </FormControl>
+                                        <FormLabel className="font-normal">
+                                            Buyer
+                                        </FormLabel>
+                                    </FormItem>
+                                    <FormItem className="flex items-center space-x-3 space-y-0">
+                                        <FormControl>
+                                            <RadioGroupItem value="service-provider" />
+                                        </FormControl>
+                                        <FormLabel className="font-normal">
+                                            Service Provider
+                                        </FormLabel>
+                                    </FormItem>
+                                </RadioGroup>
+                            </FormControl>
                         </FormItem>
                     )}
                 />

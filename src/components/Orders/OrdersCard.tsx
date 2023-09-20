@@ -35,7 +35,10 @@ const OrdersCard = ({ order, user }: PageProps) => {
             <Card className="w-96 h-96 flex flex-col justify-between">
                 <CardHeader>
                     <CardTitle className='flex flex-col gap-2'>
-                        {order.life === 'received' ? <Badge className='w-fit bg-green-500 text-center'>Completed</Badge> : <Badge className='w-fit text-center'>In Progress</Badge>}
+                        <div>
+                            {order.life === 'received' ? <Badge className='w-fit bg-green-500 text-center'>Completed</Badge> : <Badge className='w-fit text-center'>In Progress</Badge>}
+                            {(order.life === 'received' && !order.feedback) && <Link className='ml-2 text-sm font-normal hover:text-blue-400' href={`/feedback?orderId=${order._id}`}>Give us feedback</Link>}
+                        </div>
                         <span className='capitalize font-bold'>{order.type}({order.caseType})</span>
                     </CardTitle>
                     <CardDescription className='font-medium'>
@@ -57,7 +60,7 @@ const OrdersCard = ({ order, user }: PageProps) => {
                         </> : <p className='text-red-500 font-semibold'>No Service Provider Assigned</p>}
                     </div>
                 </CardContent>
-                <CardFooter className=''>
+                <CardFooter>
                     <Link className='bg-blue-500 py-3 px-4 rounded-xl w-full text-center' href={`orders/${order._id}`}>Know More</Link>
                 </CardFooter>
             </Card>

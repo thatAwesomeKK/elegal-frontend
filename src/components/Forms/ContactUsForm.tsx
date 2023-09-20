@@ -1,36 +1,33 @@
 'use client'
 import React, { useState } from 'react'
-import { zodResolver } from "@hookform/resolvers/zod"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
 import * as z from "zod"
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
-import { login } from '@/lib/apiCalls/auth'
-import Link from 'next/link'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Textarea } from '../ui/textarea'
 
 const formSchema = z.object({
     email: z.string().min(4).max(50),
-    password: z.string().min(6).max(50),
+    description: z.string().min(6).max(50),
 })
 
-const LoginForm = () => {
+const ContactUsForm = () => {
     const [loading, setLoading] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: "",
-            password: "",
+            description: "",
         },
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
-        await login(values)
         setLoading(false)
     }
-
     return (
         <>
             <Form {...form}>
@@ -50,23 +47,22 @@ const LoginForm = () => {
                     />
                     <FormField
                         control={form.control}
-                        name="password"
+                        name="description"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="password" {...field} />
+                                    <Textarea placeholder="Tell us your problem" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
-                    <Link href={'/auth/forgot-password'} className='cursor-pointer'>Forgot Password ?</Link>
                 </form>
             </Form>
         </>
     )
 }
 
-export default LoginForm
+export default ContactUsForm

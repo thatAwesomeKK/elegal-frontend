@@ -2,10 +2,10 @@ import Link from 'next/link'
 import React from 'react'
 import { cookies } from 'next/headers'
 import { Kaushan_Script } from 'next/font/google'
-import UserButton from './UserButton'
 import { store } from '@/lib/redux/store'
+import UserButton from './UserButton'
 
-const kaushanScript = Kaushan_Script({ subsets: ['latin'], weight: '400' })
+const kaushanScript = Kaushan_Script({ subsets: ['latin'], weight: '400', preload: true })
 
 const Navbar = async () => {
     const cookieStore = cookies()
@@ -25,7 +25,7 @@ const Navbar = async () => {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img src={user?.pfp || "/assets/no_profile.png"} />
+                            <img src={user?.pfp || "/assets/no_profile.png"} alt={user?.username || "Profile Picture"} />
                             {/* <img src={"/assets/no_profile.png"} /> */}
                         </div>
                     </label>
