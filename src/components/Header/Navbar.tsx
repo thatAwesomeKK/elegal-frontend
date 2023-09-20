@@ -15,7 +15,7 @@ const Navbar = async () => {
 
     return (
         <nav className="navbar bg-white shadow-md px-4 justify-between w-full h-[40px]">
-            <Link href="/" className={`${kaushanScript.className} text-2xl font-bold`}>
+            <Link href="/" prefetch={false} className={`${kaushanScript.className} text-2xl font-bold`}>
                 E-Legal
             </Link>
             <div className="flex-none gap-2">
