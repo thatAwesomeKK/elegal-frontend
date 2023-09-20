@@ -2,28 +2,23 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const { pathname, origin } = request.nextUrl;
+  const { pathname } = request.nextUrl;
   const accessToken = request.cookies.get("accessToken")?.value;
 
-  if (pathname.startsWith("/auth") && !accessToken) {
-    return NextResponse.next();
-  }
-  if (pathname.startsWith("/auth") && accessToken) {
-    return NextResponse.redirect(`${origin}/profile/dashboard`);
+  const isLoggedIn = !!accessToken;
+
+  if (pathname.startsWith("/auth") && isLoggedIn) {
+    console.log("middleware: redirecting to /");
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (pathname.startsWith("/profile") && accessToken) {
-    return NextResponse.next();
+  if (pathname.startsWith("/profile") && !isLoggedIn) {
+    console.log("middleware: redirecting to /auth/login");
+    return NextResponse.redirect(new URL("/auth/login", request.url));
   }
-
-  if (pathname.startsWith("/profile") && !accessToken) {
-    return NextResponse.redirect(`${origin}/auth?type=login`);
-  }
-
-  return NextResponse.next();
 }
 
 // See "Matching Paths" below to learn more
-// export const config = {
-//   matcher: ["/auth/login", "/auth/register", "/profile/:path*"],
-// };
+export const config = {
+  matcher: ["/auth/:path*", "/profile/:path*"],
+};

@@ -7,10 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { register, login, forgotPassword, changePassword } from '@/lib/apiCalls/auth'
 import { Form } from '../ui/form'
 import { Button } from '../ui/button'
-
 import { specializations, type as serviceProvider } from '@/lib/utils'
-
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import CustomForm from './CustomFormComponents/CustomForm'
 
 const registerSchema = z.object({
@@ -46,9 +45,18 @@ const changePasswordSchema = z.object({
     path: ["confirmPassword"],
 })
 
+interface PageProps {
+    type: string
+    token?: string
+}
 
-const AuthForm = ({ type, token }: { type: string, token?: string }) => {
+
+const AuthForm = ({ type, token }: PageProps) => {
     const [loading, setLoading] = useState(false)
+    // console.log("type", type)
+
+    const router = useRouter()
+
     const registerForm = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -224,7 +232,6 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
         }
     ]
 
-
     const loginFormSchema = [
         {
             isWatch: false,
@@ -312,7 +319,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
                                 </Button>
                             </div>
                             <Button asChild variant="ghost">
-                                <Link href={'/auth?type=forgot-password'} className='cursor-pointer'>Forgot Password ?</Link>
+                                <Link href={'/auth/forgot-password'} className='cursor-pointer'>Forgot Password ?</Link>
                             </Button>
                         </div>
                     </form>
@@ -326,7 +333,7 @@ const AuthForm = ({ type, token }: { type: string, token?: string }) => {
                         <div className='flex justify-start flex-wrap items-center gap-2 mt-4'>
                             <Button disabled={loading} className='active:scale-105' type="submit">Submit</Button>
                             <Button asChild variant={"ghost"}>
-                                <Link href={'/auth?type=login'} className='cursor-pointer'>Login</Link>
+                                <Link href={'/auth/login'} className='cursor-pointer'>Login</Link>
                             </Button>
                         </div>
                     </form>

@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  contactModal
 }: {
   children: React.ReactNode
+  contactModal: React.ReactNode
 }) {
   return (
     <html lang="en">
@@ -21,6 +23,7 @@ export default function RootLayout({
           <ToastProviders>
             <Header />
             {children}
+            {contactModal}
           </ToastProviders>
         </AuthProvider>
       </body>
