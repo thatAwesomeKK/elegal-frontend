@@ -30,7 +30,7 @@ const Navbar = async () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52">
-                        {user && <UserButton user={user} accessToken={accessToken!}/>}
+                        <UserButton user={user} accessToken={accessToken!}/>
                     </ul>
                 </div>
             </div>
