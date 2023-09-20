@@ -207,11 +207,11 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      name: "phone_number",
+      name: "mobile_no",
       renderItem: "input",
       label: "Phone Number",
       placeholder: "Phone Number",
-      type: "number",
+      type: "text",
     },
     {
       isGroup: false,
@@ -240,7 +240,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
       renderItem: "input",
       label: "Price",
       placeholder: "Price",
-      type: "number",
+      type: "text",
     },
     {
       isGroup: false,
@@ -268,11 +268,11 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      name: "phone_number",
+      name: "mobile_no",
       renderItem: "input",
       label: "Phone Number",
       placeholder: "Phone Number",
-      type: "number",
+      type: "text",
     },
     {
       isGroup: false,
@@ -312,11 +312,11 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      name: "phone_number",
+      name: "mobile_no",
       renderItem: "input",
       label: "Phone Number",
       placeholder: "Phone Number",
-      type: "number",
+      type: "text",
     },
     {
       isGroup: false,
@@ -356,11 +356,11 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      name: "phone_number",
+      name: "mobile_no",
       renderItem: "input",
       label: "Phone Number",
       placeholder: "Phone Number",
-      type: "number",
+      type: "text",
     },
     {
       isGroup: false,
@@ -400,11 +400,11 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     {
       isGroup: false,
       isWatch: false,
-      name: "phone_number",
+      name: "mobile_no",
       renderItem: "input",
       label: "Phone Number",
       placeholder: "Phone Number",
-      type: "number",
+      type: "text",
     },
     {
       isGroup: false,

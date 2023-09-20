@@ -4,7 +4,7 @@ import { getFeedbacks } from '@/lib/apiCalls/feedback';
 import { Feedback } from '@/lib/typings';
 import FeedbacksContainer from './Feedbacks/FeedbacksContainer';
 
-const permanentMarker = Permanent_Marker({ subsets: ['latin'], weight: '400' })
+const permanentMarker = Permanent_Marker({ subsets: ['latin'], weight: '400', preload: true })
 
 export const Feedbacks = async () => {
     const feedbacks: Feedback[] = await getFeedbacks()

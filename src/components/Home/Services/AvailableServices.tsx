@@ -6,7 +6,7 @@ import ServiceCard from '../AvailableServices/ServiceCard';
 import { Permanent_Marker } from 'next/font/google'
 import { Service } from '@/lib/typings';
 
-const permanentMarker = Permanent_Marker({ subsets: ['latin'], weight: '400' })
+const permanentMarker = Permanent_Marker({ subsets: ['latin'], weight: '400', preload: true })
 
 const AvailableServices = async () => {
     const cookieStore = cookies()
