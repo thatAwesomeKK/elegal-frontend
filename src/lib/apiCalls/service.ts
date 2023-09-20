@@ -100,13 +100,35 @@ export const applyToService = async (
 ) => {
   const id = toast.loading("Please Wait....");
   try {
-    const payload = await fetch(`${base_url}/service-life?life=assigned`, {
+    const payload = await fetch(`${base_url}/apply`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({ serviceId, price }),
+    }).then((res) => res.json());
+    alertCall(payload, id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const assignServiceProvider = async (
+  accessToken: string,
+  serviceId: string,
+  serviceProviderId: string,
+  price: string,
+) => {
+  const id = toast.loading("Please Wait....");
+  try {
+    const payload = await fetch(`${base_url}/service-life?life=assigned`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ serviceId, price, serviceProviderId }),
     }).then((res) => res.json());
     alertCall(payload, id);
   } catch (error) {

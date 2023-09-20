@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
+import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
 
 interface PageProps {
     params: {
@@ -16,6 +17,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
     const cookieStore = cookies()
     const accessToken = cookieStore.get('accessToken')?.value
     const service: Service = await fetchServiceWithId(accessToken, orderId)
+    
     const user = store.getState().user.user
 
     const checkLife = (stage: string) => {
@@ -37,8 +39,14 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
     }
 
     return (
-        <main className='max-w-7xl mx-auto flex flex-col justify-center items-center h-[93.5vh]'>
-            <section className='bg-white shadow-lg p-10 h-[50%] w-[50%] flex flex-col justify-between items-start'>
+        <main className='max-w-7xl mx-auto flex flex-row justify-center items-center h-[93.5vh]'>
+            {service.PotentialProviders.length > 0 && <section className='flex-1'>
+                {service.PotentialProviders.map((provider,i) =>(
+                    <PotentialProvidersCard service={service} accessToken={accessToken!} provider={provider} key={i}/>
+                ))}
+            </section>}
+            <section className='flex-1 h-full flex justify-center items-center'>
+            <div className='bg-white shadow-lg p-10 h-[50%] flex flex-col justify-between items-start'>
                 <div>
                     <h2 className='text-3xl font-bold capitalize'>{service.type}({service.caseType})</h2>
                 </div>
@@ -69,9 +77,10 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
                     <li className='step step-success'>Service Provider Assigned</li>
                     <li className='step step-success'>Paid</li>
                     <li className='step step-success'>Completed</li>
-                    {user?.role === "buyer" && <li className='step step-success'>Recieved</li>}
-                    {user?.role === "service-provider" && <li className='step step-success'>Delivered</li>}
+                    {user && (user?.role === "buyer" && <li className='step step-success'>Recieved</li>)}
+                    {user && (user?.role === "service-provider" && <li className='step step-success'>Delivered</li>)}
                 </ul>}
+            </div>
             </section>
         </main>
     )

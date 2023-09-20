@@ -10,10 +10,18 @@ export type Service = {
   state: string;
   city: string;
   life: string;
-  feedback?: boolean
+  feedback?: boolean;
+  PotentialProviders: [Provider];
+};
+
+type Provider = {
+  _id: string;
+  uid: User;
+  price: string;
 };
 
 type User = {
+  _id: string;
   username: string;
   pfp: string;
   role?: string;

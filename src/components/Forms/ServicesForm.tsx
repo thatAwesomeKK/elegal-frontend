@@ -168,6 +168,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     } else if (mediatorForm.watch("state")) {
       state = mediatorForm.watch("state")
     }
+
     const arr: any = [];
     const cities = City.getCitiesOfState("IN", state)
     cities.forEach(city => {
