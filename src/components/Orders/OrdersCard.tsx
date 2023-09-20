@@ -47,7 +47,7 @@ const OrdersCard = ({ order, user }: PageProps) => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <p><span className='font-medium'>Stage:</span> {user?.role === "buyer" ? "received" : "delivered"}</p>
+                    <p><span className='font-medium'>Stage:</span> {(user?.role === "buyer" && order.life === 'received') ? 'received' : order.life}</p>
                     <Progress className='' value={lifeStage(order.life)} />
                     <div className='flex items-center gap-3 mt-3'>
                         <p className='font-semibold text-lg'>Assigned To:</p>

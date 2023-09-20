@@ -7,6 +7,8 @@ interface PageProps {
 }
 
 export const FeedbackCards = ({ feedback }: PageProps) => {
+    console.log(feedback.uid?.role);
+    
     return (
         <div className='h-60 w-96 bg-white rounded-3xl shadow-lg border-4 border-blue-200 px-6 py-5 flex flex-col justify-evenly gap-5 items-center'>
             <div className='flex items-center space-x-2 justify-start w-full'>
