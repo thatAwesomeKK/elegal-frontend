@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Lilita_One } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,13 +15,22 @@ interface PageProps {
 
 export const ServiceCard = ({ image, type, url }: PageProps) => {
     return (
-        <Link href={url || '/'} className='relative h-72 w-72 flex justify-center items-center group transition-transform duration-100 ease-in-out hover:scale-105 cursor-pointer shadow-lg rounded-full overflow-hidden border bottom-2 border-gray-300'>
-            <div className='absolute h-72 w-72 group-hover:opacity-30 transition-transform duration-100 ease-in-out'>
-                <div className='bg-white relative h-full w-full'>
-                    <Image className='object-cover' src={image} alt='' fill />
-                </div>
-            </div>
-            <h2 className={`${lilitaOne.className} group-hover:z-10 text-red-700 font-semibold text-4xl capitalize absolute transition-transform duration-100 ease-in-out opacity-0 group-hover:opacity-100`}>{type}</h2>
-        </Link>
+        <Card className='hover:shadow-lg hover:shadow-slate-400'>
+            <Link href={url || '/'}>
+                <CardContent className='h-[200px] p-0 cursor-pointer w-full relative border-[0.5px] border-gray-300'>
+
+                    <Image className='object-cover' src={image} alt={type} fill />
+
+                </CardContent>
+                <CardFooter className='px-5 pt-3 pb-3'>
+                    <div className='flex h-full w-full items-center justify-between'>
+                        <h2 className='capitalize text-[16px] whitespace-nowrap'>{type}</h2>
+                        <Button variant={"outline"} className='whitespace-nowrap'>
+                            Apply For Service
+                        </Button>
+                    </div>
+                </CardFooter>
+            </Link>
+        </Card>
     )
 }
