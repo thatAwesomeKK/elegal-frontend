@@ -40,7 +40,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
 
     return (
         <main className='max-w-7xl mx-auto flex flex-row justify-center items-center h-[93.5vh]'>
-            {service.PotentialProviders.length > 0 && <section className='flex-1'>
+            {service.PotentialProviders?.length > 0 && <section className='flex-1'>
                 {service.PotentialProviders.map((provider, i) => (
                     <PotentialProvidersCard service={service} accessToken={accessToken!} provider={provider} key={i} />
                 ))}
