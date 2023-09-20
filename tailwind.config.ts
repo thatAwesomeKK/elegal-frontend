@@ -70,12 +70,16 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      height:{
-        "content-height": "calc(100vh-40px)"
-      }
+      height: {
+        "content-height": "calc(100vh-40px)",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("daisyui")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("daisyui"),
+    require("tailwind-scrollbar-hide"),
+  ],
   daisyui: {
     themes: ["light"],
   },
