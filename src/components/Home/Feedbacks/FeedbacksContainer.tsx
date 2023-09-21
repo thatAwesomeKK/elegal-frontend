@@ -5,9 +5,6 @@ import { Feedback } from '@/lib/typings'
 
 import Slider from "react-slick";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 let settings = {
   dots: false,
   infinite: true,

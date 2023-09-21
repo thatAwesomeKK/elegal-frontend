@@ -3,6 +3,8 @@ import { ImageSlider } from "@/components/Home/ImageSlider";
 import CheckUserRoleService from "@/components/Home/CheckUserRoleService";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Feedbacks = dynamic(() => import('@/components/Home/Feedbacks').then((module) => module.Feedbacks))
 
