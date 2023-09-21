@@ -12,8 +12,8 @@ export const FeedbackCards = ({ feedback }: PageProps) => {
             <div className='flex items-center space-x-2 justify-start w-full'>
                 <Image className='rounded-full border border-black' src={feedback.uid?.pfp!} alt='' width={50} height={50} />
                 <div>
-                    <h4 className='font-semibold'>{feedback.uid?.username}</h4>
                     <h6 className='capitalize text-sm text-gray-500'>({feedback.uid?.role === 'service-provider' ? feedback.uid?.type : "Buyer"})</h6>
+                    <h4 className='font-semibold'>{feedback.uid?.username}</h4>
                 </div>
             </div>
             <div className='bg-green-200 flex-1 shadow-lg rounded-lg w-full line-clamp-4'>

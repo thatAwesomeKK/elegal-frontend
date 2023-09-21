@@ -11,6 +11,7 @@ import { specializations, type as serviceProvider } from '@/lib/utils'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import CustomForm from './CustomFormComponents/CustomForm'
+import { formSchemaType } from "@/lib/typings.d"
 
 const registerSchema = z.object({
     username: z.string().min(4).max(50),
@@ -132,7 +133,7 @@ const AuthForm = ({ type, token }: PageProps) => {
         }
     }, [registerForm.watch("role")])
 
-    const registerFormSchema = [
+    const registerFormSchema: formSchemaType = [
         {
             isWatch: false,
             isGroup: false,
@@ -200,23 +201,29 @@ const AuthForm = ({ type, token }: PageProps) => {
             form: registerForm,
             watchItems: [
                 {
+                    isGroup: true,
                     isWatch: false,
-                    name: "type",
-                    renderItem: "comboBox",
-                    array: serviceProvider
-                },
-                {
-                    isWatch: true,
-                    watch: "type",
-                    watchValue: "advocate",
-                    form: registerForm,
-                    watchItems: [
+                    groupItems: [
                         {
                             isWatch: false,
-                            name: "specialization",
+                            name: "type",
                             renderItem: "comboBox",
-                            array: specializations
-                        }
+                            array: serviceProvider
+                        },
+                        {
+                            isWatch: true,
+                            watch: "type",
+                            watchValue: "advocate",
+                            form: registerForm,
+                            watchItems: [
+                                {
+                                    isWatch: false,
+                                    name: "specialization",
+                                    renderItem: "comboBox",
+                                    array: specializations
+                                }
+                            ]
+                        },
                     ]
                 },
                 {
@@ -232,7 +239,7 @@ const AuthForm = ({ type, token }: PageProps) => {
         }
     ]
 
-    const loginFormSchema = [
+    const loginFormSchema: formSchemaType = [
         {
             isWatch: false,
             isGroup: false,
@@ -255,7 +262,7 @@ const AuthForm = ({ type, token }: PageProps) => {
         }
     ]
 
-    const forgotPasswordFormSchema = [
+    const forgotPasswordFormSchema: formSchemaType = [
         {
             isWatch: false,
             isGroup: false,
@@ -268,7 +275,7 @@ const AuthForm = ({ type, token }: PageProps) => {
         },
     ]
 
-    const changePasswordFormSchema = [
+    const changePasswordFormSchema: formSchemaType = [
         {
             isWatch: false,
             control: changePasswordForm.control,

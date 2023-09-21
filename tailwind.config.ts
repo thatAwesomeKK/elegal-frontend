@@ -73,6 +73,9 @@ module.exports = {
       height: {
         "content-height": "calc(100vh-40px)",
       },
+      breakpoints: {
+        "3xl": "1920px",
+      }
     },
   },
   plugins: [

@@ -8,7 +8,6 @@ function CustomForm({ schema }: { schema: any }) {
             return (
                 item?.isWatch ?
                     <CustomWatchField key={index} watchItem={item} /> :
-
                     item?.form ? (<CustomFormField
                         key={index}
                         formFields={item}
