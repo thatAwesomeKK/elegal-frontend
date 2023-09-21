@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { fetchOrderWithId, fetchServiceWithId } from '@/lib/apiCalls/service'
+import { fetchOrderWithId } from '@/lib/apiCalls/service'
 import { Provider, Service, User } from '@/lib/typings'
 import { cookies } from 'next/headers'
 import React from 'react'
