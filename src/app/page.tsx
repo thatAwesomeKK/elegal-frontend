@@ -15,7 +15,7 @@ export default async function Home() {
 }
 
 const HomeComponents = () => {
-  return <main className="h-content-height w-full">
+  return <main className="w-full">
     <ImageSlider />
     <hr className="border-1 border-gray-300" />
     <CheckUserRoleService />

@@ -12,6 +12,7 @@ const CheckUserRoleService = async () => {
     const cookieStore = cookies()
     const accessToken = cookieStore.get('accessToken')?.value
     const services: Service[] = await fetchMatchServiceRequest(accessToken)
+    
     return (
         <>
             {(!user || user?.role === 'buyer') ? <Services />
