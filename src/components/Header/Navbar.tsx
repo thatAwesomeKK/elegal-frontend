@@ -19,9 +19,9 @@ const Navbar = async () => {
                 E-Legal
             </Link>
             <div className="flex-none gap-2">
-                <div className="form-control">
+                {/* <div className="form-control">
                     <input type="text" placeholder="Search" className="input input-bordered h-[35px] w-[250px]" />
-                </div>
+                </div> */}
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">

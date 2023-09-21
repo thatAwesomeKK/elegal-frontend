@@ -41,14 +41,14 @@ const Services = async ({ params: { serviceType } }: PageProps) => {
     const cookieStore = cookies()
     const accessToken = cookieStore.get('accessToken')?.value
     return (
-        <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]' >
+        <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px] px-4 md:px-0' >
             <Tabs
                 className='w-full sm:w-[580px] h-max rounded-lg'
                 defaultValue={serviceType as string || "advocate"}>
-                <TabsList className='w-full flex flex-nowrap'>
+                <TabsList className='h-min flex flex-wrap md:flex-nowrap'>
                     {
                         services.map((service, index) => {
-                            return <TabsTrigger key={index} value={service.value} className='w-full'><Link href={`/services/${service.value}`} replace>{service.name}</Link></TabsTrigger>
+                            return <TabsTrigger key={index} value={service.value} className=' md:w-full'><Link href={`/services/${service.value}`} replace>{service.name}</Link></TabsTrigger>
                         })
                     }
                 </TabsList>

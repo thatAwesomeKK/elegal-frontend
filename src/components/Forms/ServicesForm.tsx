@@ -10,7 +10,7 @@ import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { case_type } from '@/lib/utils'
-
+import { formSchemaType } from "@/lib/typings.d"
 
 interface PageProps {
   accessToken?: string
@@ -180,30 +180,38 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
   notaryForm.watch('state'),
   mediatorForm.watch('state')])
 
-  const advocateFormSchema = [
+  const advocateFormSchema: formSchemaType = [
     {
-      isGroup: false,
+      isGroup: true,
       isWatch: false,
-      form: advocateForm,
-      name: "state",
-      renderItem: "comboBox",
-      array: state
-    },
-    {
-      isWatch: true,
-      isGroup: false,
-      form: advocateForm,
-      watch: "state",
-      watchValue: "",
-      watchItems: [
+
+      groupItems: [
         {
+          isGroup: false,
           isWatch: false,
-          name: "city",
+          form: advocateForm,
+          name: "state",
           renderItem: "comboBox",
-          array: city
+          array: state
+        },
+        {
+          isWatch: true,
+          isGroup: false,
+          form: advocateForm,
+          watch: "state",
+          watchValue: "",
+          watchItems: [
+            {
+              isWatch: false,
+              name: "city",
+              renderItem: "comboBox",
+              array: city
+            },
+          ]
         },
       ]
     },
+
     {
       isGroup: false,
       isWatch: false,
@@ -232,7 +240,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     },
   ]
 
-  const notaryFormSchema = [
+  const notaryFormSchema: formSchemaType = [
     {
       isGroup: false,
       isWatch: false,
@@ -243,25 +251,31 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
       type: "text",
     },
     {
-      isGroup: false,
+      isGroup: true,
       isWatch: false,
-      form: notaryForm,
-      name: "state",
-      renderItem: "comboBox",
-      array: state
-    },
-    {
-      isWatch: true,
-      isGroup: false,
-      form: notaryForm,
-      watch: "state",
-      watchValue: "",
-      watchItems: [
+      groupItems: [
         {
+          isGroup: false,
           isWatch: false,
-          name: "city",
+          form: notaryForm,
+          name: "state",
           renderItem: "comboBox",
-          array: city
+          array: state
+        },
+        {
+          isWatch: true,
+          isGroup: false,
+          form: notaryForm,
+          watch: "state",
+          watchValue: "",
+          watchItems: [
+            {
+              isWatch: false,
+              name: "city",
+              renderItem: "comboBox",
+              array: city
+            },
+          ]
         },
       ]
     },
@@ -285,27 +299,33 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     },
   ]
 
-  const documentWriterFormSchema = [
+  const documentWriterFormSchema: formSchemaType = [
     {
-      isGroup: false,
+      isGroup: true,
       isWatch: false,
-      form: documentWriterForm,
-      name: "state",
-      renderItem: "comboBox",
-      array: state
-    },
-    {
-      isWatch: true,
-      isGroup: false,
-      form: documentWriterForm,
-      watch: "state",
-      watchValue: "",
-      watchItems: [
+      groupItems: [
         {
+          isGroup: false,
           isWatch: false,
-          name: "city",
+          form: documentWriterForm,
+          name: "state",
           renderItem: "comboBox",
-          array: city
+          array: state
+        },
+        {
+          isWatch: true,
+          isGroup: false,
+          form: documentWriterForm,
+          watch: "state",
+          watchValue: "",
+          watchItems: [
+            {
+              isWatch: false,
+              name: "city",
+              renderItem: "comboBox",
+              array: city
+            },
+          ]
         },
       ]
     },
@@ -329,27 +349,33 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     },
   ]
 
-  const arbitratorFormSchema = [
+  const arbitratorFormSchema: formSchemaType = [
     {
-      isGroup: false,
+      isGroup: true,
       isWatch: false,
-      form: arbitratorForm,
-      name: "state",
-      renderItem: "comboBox",
-      array: state
-    },
-    {
-      isWatch: true,
-      isGroup: false,
-      form: arbitratorForm,
-      watch: "state",
-      watchValue: "",
-      watchItems: [
+      groupItems: [
         {
+          isGroup: false,
           isWatch: false,
-          name: "city",
+          form: arbitratorForm,
+          name: "state",
           renderItem: "comboBox",
-          array: city
+          array: state
+        },
+        {
+          isWatch: true,
+          isGroup: false,
+          form: arbitratorForm,
+          watch: "state",
+          watchValue: "",
+          watchItems: [
+            {
+              isWatch: false,
+              name: "city",
+              renderItem: "comboBox",
+              array: city
+            },
+          ]
         },
       ]
     },
@@ -373,27 +399,33 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
     },
   ]
 
-  const mediatorFormSchema = [
+  const mediatorFormSchema: formSchemaType = [
     {
-      isGroup: false,
+      isGroup: true,
       isWatch: false,
-      form: mediatorForm,
-      name: "state",
-      renderItem: "comboBox",
-      array: state
-    },
-    {
-      isWatch: true,
-      isGroup: false,
-      form: mediatorForm,
-      watch: "state",
-      watchValue: "",
-      watchItems: [
+      groupItems: [
         {
+          isGroup: false,
           isWatch: false,
-          name: "city",
+          form: mediatorForm,
+          name: "state",
           renderItem: "comboBox",
-          array: city
+          array: state
+        },
+        {
+          isWatch: true,
+          isGroup: false,
+          form: mediatorForm,
+          watch: "state",
+          watchValue: "",
+          watchItems: [
+            {
+              isWatch: false,
+              name: "city",
+              renderItem: "comboBox",
+              array: city
+            },
+          ]
         },
       ]
     },

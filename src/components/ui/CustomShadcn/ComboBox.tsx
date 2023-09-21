@@ -11,21 +11,23 @@ const ComboBox = ({ form, field, array, name }: any) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <Popover open={isOpen} onOpenChange={setIsOpen}>
-            <PopoverTrigger asChild className='mx-2 whitespace-nowrap'>
+            <PopoverTrigger asChild className='whitespace-nowrap'>
                 <FormControl>
                     <Button
                         variant="outline"
                         role="combobox"
                         className={cn(
-                            "w-[200px] justify-between capitalize",
+                            "w-[200px] justify-between capitalize items-center overflow-hidden flex-nowrap",
                             !field.value && "text-muted-foreground"
                         )}
                     >
-                        {field.value !== ''
-                            ? array?.find(
-                                (arr: any) => arr.value === field.value
-                            )?.label || `Select ${name}`
-                            : `Select ${name}`}
+                        <span className='w-full overflow-hidden'>
+                            {field.value !== ''
+                                ? array?.find(
+                                    (arr: any) => arr.value === field.value
+                                )?.label || `Select ${name}`
+                                : `Select ${name}`}
+                        </span>
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </FormControl>
