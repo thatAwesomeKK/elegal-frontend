@@ -3,14 +3,16 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Provider, Service } from '@/lib/typings'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import ChooseProviderButton from './ChooseProviderButton'
+import { store } from '@/lib/redux/store'
 
 interface PageProps {
     service: Service
-    accessToken: string
+    accessToken?: string
     provider: Provider
 }
 
 const PotentialProvidersCard = ({ service, accessToken, provider }: PageProps) => {
+    const user = store.getState().user.user
     return (
         <>
             <Card className="w-96 h-fit flex flex-col justify-between">
@@ -21,6 +23,7 @@ const PotentialProvidersCard = ({ service, accessToken, provider }: PageProps) =
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         <span className='text-xl font-semibold'>{provider.uid?.username}</span>
+                        {provider.uid?._id === user?._id && <span className='text-sm font-light'>(You)</span>}
                     </CardTitle>
                     <CardDescription className='font-medium'>
                     </CardDescription>
@@ -31,7 +34,7 @@ const PotentialProvidersCard = ({ service, accessToken, provider }: PageProps) =
                     </p>
                 </CardContent>
                 <CardFooter>
-                    <ChooseProviderButton accessToken={accessToken} service={service} provider={provider}/>
+                    {accessToken && <ChooseProviderButton accessToken={accessToken} service={service} provider={provider}/>}
                 </CardFooter>
             </Card>
         </>

@@ -2,10 +2,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { fetchServiceWithId } from '@/lib/apiCalls/service'
 import { Service, User } from '@/lib/typings'
 import { cookies } from 'next/headers'
-import React, { Suspense } from 'react'
+import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
-import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
+import dynamic from 'next/dynamic'
+
+const PotentialProvidersCard = dynamic(() => import('@/components/Orders/PotentialProvidersCard'))
 
 interface PageProps {
     params: {
@@ -51,9 +53,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
                         </> : (<p className='text-red-500 font-semibold'>No Service Provider Assigned</p>)}
                     </div>
                     <ActionButtons user={user} accessToken={accessToken!} service={service} />
-                    <Suspense fallback={<div>Loading....</div>}>
                     <Progress user={user} service={service} />
-                    </Suspense>
                 </div>
             </section>
         </main>

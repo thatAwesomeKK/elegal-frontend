@@ -1,7 +1,9 @@
-import { Feedbacks } from "@/components/Home/Feedbacks";
 import { ImageSlider } from "@/components/Home/ImageSlider";
 import CheckUserRoleService from "@/components/Home/CheckUserRoleService";
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
+
+const Feedbacks = dynamic(() => import('@/components/Home/Feedbacks').then((module) => module.Feedbacks))
 
 export default async function Home() {
   return (

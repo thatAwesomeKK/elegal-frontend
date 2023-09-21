@@ -4,6 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { applyToService } from '@/lib/apiCalls/service'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from "zod"
@@ -19,6 +20,7 @@ const formSchema = z.object({
 })
 
 const ActionButtons = ({ accessToken, serviceId, price }: PageProps) => {
+    const router = useRouter()
     const [loading, setLoading] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -30,6 +32,7 @@ const ActionButtons = ({ accessToken, serviceId, price }: PageProps) => {
         setLoading(true)
         await applyToService(accessToken, serviceId, values.price)
         setLoading(false)
+        router.refresh()
     }
 
     return (
