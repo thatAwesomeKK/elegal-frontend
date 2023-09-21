@@ -15,13 +15,11 @@ const AvailableServices = async () => {
     return (
         <section className='my-10 mx-20'>
             <h1 className={`${libreBaskerville.className} text-gray-600 text-8xl font-bold text-center mb-16`}>Available Services</h1>
-            <div className='grid grid-cols-4 gap-10'>
-                {
-                    services?.map((service, i: number) => (
-                        <ServiceCard key={i} service={service} />
-                    ))
-                }
-            </div>
+            {services.length > 0 ? <div className='grid grid-cols-4 gap-10'>
+                {services.map((service, i: number) => (
+                    <ServiceCard key={i} service={service} />
+                ))}
+            </div> : <p className='text-center font-medium text-lg text-red-500'>No Available Services Found!</p>}
         </section>
     )
 }
