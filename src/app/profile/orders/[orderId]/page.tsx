@@ -6,6 +6,7 @@ import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
 import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface PageProps {
     params: {
