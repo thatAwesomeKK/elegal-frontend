@@ -6,6 +6,8 @@ import React, { Suspense } from 'react'
 import { store } from '@/lib/redux/store'
 import { Service } from '@/lib/typings'
 import dynamic from 'next/dynamic'
+import { setTimeout } from 'timers/promises'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const OrdersCard = dynamic(() => import('@/components/Orders/OrdersCard'))
 
@@ -18,9 +20,9 @@ const Orders = async () => {
     const orders: Service[] = await fetchProfileServiceRequest(accessToken)
 
     return (
-        <main className="max-w-7xl mx-auto py-10">
+        <main className="lg:max-w-7xl mx-auto py-10">
             <h1 className={`${permanentMarker.className} text-gray-600 text-8xl font-bold text-center mb-16 underline`}>Orders</h1>
-            <section className='grid grid-cols-3 gap-10'>
+            <section className='flex flex-col justify-center items-center md:grid gap-10 md:grid-cols-2 lg:grid-cols-3'>
                 <OrdersContainer orders={orders} />
             </section>
         </main>
