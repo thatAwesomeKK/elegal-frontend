@@ -9,8 +9,8 @@ const libreBaskerville = Libre_Baskerville({ subsets: ['latin', 'latin-ext'], we
 
 export const Feedbacks = async () => {
     return (
-        <section className='my-10 mx-10'>
-            <h1 className={`${libreBaskerville.className} text-gray-600 text-8xl font-bold text-center mb-16`}>Feedback/Stories</h1>
+        <section className='my-10 mx-0 sm:mx-10'>
+            <h1 className={`${libreBaskerville.className} text-[2rem] sm:text-[4rem] text-gray-600 lg:text-8xl font-bold text-center mb-16`}>Feedback/Stories</h1>
             <Suspense fallback={<FeedbackSkeleton />}>
                 <FetchFeedback />
             </Suspense>
