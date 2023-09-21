@@ -8,21 +8,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// const responsive = {
-//   desktop: {
-//     breakpoint: { max: 3000, min: 1024 },
-//     items: 3,
-//   },
-//   tablet: {
-//     breakpoint: { max: 1024, min: 464 },
-//     items: 2,
-//   },
-//   mobile: {
-//     breakpoint: { max: 464, min: 0 },
-//     items: 1,
-//   }
-// };
-
 let settings = {
   dots: false,
   infinite: true,
@@ -70,11 +55,9 @@ const FeedbacksContainer = ({ feedbacks }: PageProps) => {
   return (
     // @ts-ignore
     <Slider {...settings}>
-      <>
-        {feedbacks.map((feedback, i) => (
-          <FeedbackCards key={i} feedback={feedback} />
-        ))}
-      </>
+      {feedbacks.map((feedback, i) => (
+        <FeedbackCards key={i} feedback={feedback} />
+      ))}
     </Slider>
   )
 }
