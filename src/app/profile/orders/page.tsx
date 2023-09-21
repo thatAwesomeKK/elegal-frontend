@@ -1,15 +1,10 @@
-// import OrdersCard from '@/components/Orders/OrdersCard'
+import OrdersCard from '@/components/Orders/OrdersCard'
 import { fetchProfileServiceRequest } from '@/lib/apiCalls/service'
 import { cookies } from 'next/headers'
 import { Permanent_Marker } from 'next/font/google'
-import React, { Suspense } from 'react'
+import React from 'react'
 import { store } from '@/lib/redux/store'
 import { Service } from '@/lib/typings'
-import dynamic from 'next/dynamic'
-import { setTimeout } from 'timers/promises'
-import { Skeleton } from '@/components/ui/skeleton'
-
-const OrdersCard = dynamic(() => import('@/components/Orders/OrdersCard'))
 
 const permanentMarker = Permanent_Marker({ subsets: ['latin'], weight: '400' })
 
