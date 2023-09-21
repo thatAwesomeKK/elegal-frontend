@@ -5,9 +5,7 @@ import { cookies } from 'next/headers'
 import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
-import dynamic from 'next/dynamic'
-
-const PotentialProvidersCard = dynamic(() => import('@/components/Orders/PotentialProvidersCard'))
+import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
 
 interface PageProps {
     params: {

@@ -15,10 +15,7 @@ interface PageProps {
 const ServiceDetail = async ({ params: { serviceId } }: PageProps) => {
     const cookieStore = cookies()
     const accessToken = cookieStore.get('accessToken')?.value
-    const service: Service = await fetchServiceWithId(accessToken, serviceId)
-    console.log(service);
-    
-
+    const service: Service = await fetchServiceWithId(accessToken, serviceId)  
     const user = store.getState().user.user
 
     const checkExists = () => {
