@@ -25,16 +25,9 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
 
 
     return (
-        <main className='max-w-7xl mx-auto flex flex-row justify-center items-center h-[93.5vh]'>
-            {service.PotentialProviders?.length > 0 && <section className='flex-1 flex flex-col justify-center items-center min-h-full overflow-hidden overflow-y-scroll py-10 gap-10 scrollbar-hide'>
-                <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
-                <hr className="border-1 w-44 border-gray-400" />
-                {service.PotentialProviders.map((provider, i) => (
-                    <PotentialProvidersCard service={service} accessToken={accessToken!} provider={provider} key={i} />
-                ))}
-            </section>}
-            <section className='flex-1 h-full flex justify-center items-center'>
-                <div className='bg-white shadow-lg p-10 h-[50%] flex flex-col justify-between items-start'>
+        <main className={`w-full flex flex-row p-8  ${service?.PotentialProviders?.length > 0 ? "justify-between items-start" : "justify-center items-center"} gap-5 h-content-height`}>
+            <section className=' h-full flex justify-center items-start w-full max-w-[40rem]'>
+                <div className='bg-white shadow-lg p-10  flex flex-col justify-between items-start gap-3'>
                     <div>
                         <h2 className='text-3xl font-bold capitalize'>{service.type}({service.caseType})</h2>
                     </div>
@@ -56,6 +49,17 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
                     <Progress user={user} service={service} />
                 </div>
             </section>
+            {service.PotentialProviders?.length > 0 && <section className='flex items-start justify-start w-full'>
+                <div className=' flex flex-col justify-center items-center h-full overflow-hidden overflow-y-scroll  gap-10 scrollbar-hide'>
+                    <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
+                    <hr className="border-1 w-44 border-gray-400" />
+                    <div className="flex flex-wrap gap-5">
+                        {service.PotentialProviders.map((provider, i) => (
+                            <PotentialProvidersCard service={service} accessToken={accessToken!} provider={provider} key={i} />
+                        ))}
+                    </div>
+                </div>
+            </section>}
         </main>
     )
 }
