@@ -52,7 +52,7 @@ const FeedbacksContainer = ({ feedbacks }: PageProps) => {
   return (
     // @ts-ignore
     <Slider {...settings}>
-      {feedbacks.map((feedback, i) => (
+      {feedbacks?.map((feedback, i) => (
         <FeedbackCards key={i} feedback={feedback} />
       ))}
     </Slider>
