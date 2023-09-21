@@ -6,6 +6,8 @@ import React, { Suspense } from 'react'
 import { store } from '@/lib/redux/store'
 import { Service } from '@/lib/typings'
 import dynamic from 'next/dynamic'
+import { setTimeout } from 'timers/promises'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const OrdersCard = dynamic(() => import('@/components/Orders/OrdersCard'))
 
