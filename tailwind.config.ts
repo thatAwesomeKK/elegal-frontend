@@ -71,7 +71,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       height: {
-        "content-height": "calc(100vh-40px)",
+        "content-height": "calc(100vh - 64px)",
       },
       breakpoints: {
         "3xl": "1920px",

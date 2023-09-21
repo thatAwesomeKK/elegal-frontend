@@ -14,7 +14,7 @@ const Navbar = async () => {
     const user = store.getState().user.user
 
     return (
-        <nav className="navbar bg-white shadow-md px-4 justify-between w-full h-[40px]">
+        <nav className="navbar bg-white shadow-md px-4 justify-between w-full h-full max-h-[40px]">
             <Link href="/" prefetch={false} className={`${kaushanScript.className} text-2xl font-bold`}>
                 E-Legal
             </Link>
