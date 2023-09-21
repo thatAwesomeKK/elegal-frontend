@@ -16,13 +16,21 @@ const ServiceDetail = async ({ params: { serviceId } }: PageProps) => {
     const cookieStore = cookies()
     const accessToken = cookieStore.get('accessToken')?.value
     const service: Service = await fetchServiceWithId(accessToken, serviceId)
+    console.log(service);
+    
 
     const user = store.getState().user.user
 
     const checkExists = () => {
         const served = service.PotentialProviders.filter(provider => provider.uid?._id === user?._id)
         return (served.length > 0 ? true : false)
-    } 
+    }
+
+    if (!service) {
+        return <main className='max-w-7xl mx-auto flex justify-center items-center h-[93.5vh]'>
+            Not Found!
+        </main>
+    }
 
     return (
         <main className='max-w-7xl mx-auto flex justify-center items-center h-[93.5vh]'>
@@ -48,7 +56,7 @@ const ServiceDetail = async ({ params: { serviceId } }: PageProps) => {
                 {!checkExists() && <ActionButtons serviceId={service._id} accessToken={accessToken!} price={service.price} />}
             </section>
         </main>
-    )   
+    )
 }
 
 export default ServiceDetail

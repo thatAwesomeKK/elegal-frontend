@@ -78,7 +78,28 @@ export const fetchServiceWithId = async (
 ) => {
   try {
     const payload = await fetch(
-      `${base_url}/fetch-withid?serviceId=${serviceId}`,
+      `${base_url}/fetch-with-serviceid?serviceId=${serviceId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ).then((res) => res.json());
+    return payload.message;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchOrderWithId = async (
+  accessToken: any,
+  serviceId: string
+) => {
+  try {
+    const payload = await fetch(
+      `${base_url}/fetch-with-orderid?serviceId=${serviceId}`,
       {
         method: "GET",
         headers: {

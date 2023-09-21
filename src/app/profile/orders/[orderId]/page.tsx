@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { fetchServiceWithId } from '@/lib/apiCalls/service'
+import { fetchOrderWithId, fetchServiceWithId } from '@/lib/apiCalls/service'
 import { Service, User } from '@/lib/typings'
 import { cookies } from 'next/headers'
 import React from 'react'
@@ -18,7 +18,7 @@ interface PageProps {
 const OrderDetails = async ({ params: { orderId } }: PageProps) => {
     const cookieStore = cookies()
     const accessToken = cookieStore.get('accessToken')?.value
-    const service: Service = await fetchServiceWithId(accessToken, orderId)
+    const service: Service = await fetchOrderWithId(accessToken, orderId)
 
     const user = store.getState().user.user
 
