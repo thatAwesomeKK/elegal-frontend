@@ -19,9 +19,9 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
     const service: Service = await fetchOrderWithId(accessToken, orderId)
 
     return (
-        <main className='max-w-7xl mx-auto flex flex-row justify-center items-center h-[93.5vh]'>
-            <AppliedServiceProviders providers={service.PotentialProviders} service={service} accessToken={accessToken!} />
+        <main className='flex justify-between flex-col xl:flex-row items-center py-5 px-8 w-full'>
             <ServiceInfo service={service} accessToken={accessToken!} />
+            <AppliedServiceProviders providers={service.PotentialProviders} service={service} accessToken={accessToken!} />
         </main>
     )
 }
@@ -70,7 +70,7 @@ const Progress = ({ user, service }: Props) => {
 const AppliedServiceProviders = ({ providers, service, accessToken }: { providers: Provider[], service: Service, accessToken: string }) => {
     return (
         <>
-            {providers.length > 0 && <section className='flex-1 flex flex-col justify-center items-center min-h-full overflow-hidden overflow-y-scroll py-10 gap-10 scrollbar-hide'>
+            {providers.length > 0 && <section className='flex-1 flex flex-col justify-center items-center overflow-hidden overflow-y-scroll py-10 gap-10 scrollbar-hide'>
                 <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
                 <hr className="border-1 w-44 border-gray-400" />
                 {providers.map((provider, i) => (
@@ -83,8 +83,8 @@ const AppliedServiceProviders = ({ providers, service, accessToken }: { provider
 const ServiceInfo = ({ service, accessToken }: { service: Service, accessToken: string }) => {
     const user = store.getState().user.user
     return (
-        <section className='flex-1 h-full flex justify-center items-center'>
-            <div className='bg-white shadow-lg p-10 h-[50%] flex flex-col justify-between items-start'>
+        <section className='flex-1 lg:h-[50vh] gap-5 flex flex-col justify-between items-center'>
+            <div className='bg-white shadow-lg p-10 h-full w-full 2xl:w-[70%] xl:w-[90%] lg:w-[60%] md:w-[60%] flex flex-col justify-between items-start'>
                 <div>
                     <h2 className='text-3xl font-bold capitalize'>{service.type}({service.caseType})</h2>
                 </div>

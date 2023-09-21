@@ -31,7 +31,7 @@ const ServiceDetail = async ({ params: { serviceId } }: PageProps) => {
     }
 
     return (
-        <main className='flex justify-between flex-col lg:flex-row items-center py-5 px-8 h-content-height w-full'>
+        <main className='flex justify-between flex-col lg:flex-row items-center py-5 px-8 w-full'>
             <section className='w-full lg:max-w-[25rem] bg-white shadow-lg p-10 gap-5 flex flex-col justify-between items-center'>
                 <div className='flex flex-wrap lg:flex-col items-center justify-center gap-8'>
                     <div className='flex flex-col items-start justify-center'>

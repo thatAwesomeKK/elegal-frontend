@@ -14,7 +14,7 @@ const AvailableServices = async () => {
 
     return (
         <section className='my-10 mx-20'>
-            <h1 className={`${libreBaskerville.className} text-gray-600 text-8xl font-bold text-center mb-16`}>Available Services</h1>
+            <h1 className={`${libreBaskerville.className} text-[2rem] sm:text-[4rem] text-gray-600 lg:text-8xl font-bold text-center mb-16`}>Available Services</h1>
             {services.length > 0 ? <div className='
             grid grid-cols-1 w-full max-w-[50rem] gap-10 
             sm:grid-cols-2 sm:max-w-[70rem] 
