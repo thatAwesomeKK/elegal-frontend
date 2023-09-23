@@ -13,7 +13,7 @@ const Dashboard = async () => {
     return (
         <main className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]'>
             <section className='w-full sm:w-[700px] h-max'>
-                <ProfileForm user={user} session={session!} />
+                <ProfileForm user={user}/>
             </section>
         </main>
     )
