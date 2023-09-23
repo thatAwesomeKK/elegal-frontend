@@ -18,7 +18,6 @@ export const getFeedbacks = async () => {
 };
 
 export const createFeedback = async (
-  accessToken: string,
   description: string,
   serviceId: string
 ) => {
@@ -28,8 +27,8 @@ export const createFeedback = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
+      credentials: "include",
       body: JSON.stringify({ description, serviceId }),
     }).then((res) => res.json());
     alertCall(payload, id);

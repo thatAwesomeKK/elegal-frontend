@@ -9,8 +9,8 @@ const libreBaskerville = Libre_Baskerville({ subsets: ['latin', 'latin-ext'], we
 
 const AvailableServices = async () => {
     const cookieStore = cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
-    const services: Service[] = await fetchAvailableServiceRequest(accessToken)
+    const session = cookieStore.get('sid')?.value
+    const services: Service[] = await fetchAvailableServiceRequest(session)
 
     return (
         <section className='my-10 mx-20'>

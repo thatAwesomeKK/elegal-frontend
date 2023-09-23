@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form'
 import * as z from "zod"
 
 interface PageProps {
-    accessToken: string
     serviceId: string
     price?: string
 }
@@ -19,7 +18,7 @@ const formSchema = z.object({
     price: z.string(),
 })
 
-const ActionButtons = ({ accessToken, serviceId, price }: PageProps) => {
+const ActionButtons = ({ serviceId, price }: PageProps) => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
@@ -30,7 +29,7 @@ const ActionButtons = ({ accessToken, serviceId, price }: PageProps) => {
     })
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
-        await applyToService(accessToken, serviceId, values.price)
+        await applyToService(serviceId, values.price)
         setLoading(false)
         router.refresh()
     }

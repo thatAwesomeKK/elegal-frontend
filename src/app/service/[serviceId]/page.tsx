@@ -14,9 +14,9 @@ interface PageProps {
 
 const ServiceDetail = async ({ params: { serviceId } }: PageProps) => {
     const cookieStore = cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
+    const session = cookieStore.get('sid')?.value
 
-    const service: Service = await fetchServiceWithId(accessToken, serviceId)  
+    const service: Service = await fetchServiceWithId(session!, serviceId)  
     const user = store.getState().user.user
 
     const checkExists = () => {
@@ -43,7 +43,7 @@ const ServiceDetail = async ({ params: { serviceId } }: PageProps) => {
                         <p>{service.description}</p>
                     </div>
                 </div>
-                {!checkExists() && <ActionButtons serviceId={service._id} accessToken={accessToken!} price={service.price} />}
+                {!checkExists() && <ActionButtons serviceId={service._id} price={service.price} />}
             </section>
             <section className='w-full h-full py-5'>
                 <div className=' flex flex-col justify-start items-center min-h-full overflow-hidden overflow-y-scroll  gap-10 scrollbar-hide'>

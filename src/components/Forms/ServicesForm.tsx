@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Form } from '../ui/form'
 import { Button } from '../ui/button'
 import CustomForm from './CustomFormComponents/CustomForm'
-import Link from 'next/link'
 import { State, City, IState, ICity } from 'country-state-city';
 import { createServiceRequest } from '@/lib/apiCalls/service'
 import * as z from 'zod'
@@ -13,7 +12,7 @@ import { case_type } from '@/lib/utils'
 import { formSchemaType } from "@/lib/typings.d"
 
 interface PageProps {
-  accessToken?: string
+  session?: string
   serviceType: string
 }
 
@@ -55,7 +54,7 @@ const MediatorSchema = z.object({
 })
 
 
-const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
+const ServicesForm = ({ serviceType }: PageProps) => {
 
   const [loading, setLoading] = useState(false)
   const [state, setState] = useState<IState[]>()
@@ -74,7 +73,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
 
   const onAdvocateSubmit = async (values: z.infer<typeof AdvocateSchema>) => {
     setLoading(true)
-    await createServiceRequest({ ...values, serviceType }, accessToken)
+    await createServiceRequest({ ...values, serviceType })
     setLoading(false)
   }
 
@@ -90,7 +89,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
 
   const onArbitratorSubmit = async (values: z.infer<typeof ArbitratorSchema>) => {
     setLoading(true)
-    await createServiceRequest({ ...values, serviceType }, accessToken)
+    await createServiceRequest({ ...values, serviceType })
     setLoading(false)
   }
 
@@ -106,7 +105,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
 
   const onDocumentWriterSubmit = async (values: z.infer<typeof DocumentWriterSchema>) => {
     setLoading(true)
-    await createServiceRequest({ ...values, serviceType }, accessToken)
+    await createServiceRequest({ ...values, serviceType })
     setLoading(false)
   }
 
@@ -123,7 +122,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
 
   const onNotarySubmit = async (values: z.infer<typeof NotarySchema>) => {
     setLoading(true)
-    await createServiceRequest({ ...values, serviceType }, accessToken)
+    await createServiceRequest({ ...values, serviceType })
     setLoading(false)
   }
 
@@ -139,7 +138,7 @@ const ServicesForm = ({ accessToken, serviceType }: PageProps) => {
 
   const onMediatorSubmit = async (values: z.infer<typeof MediatorSchema>) => {
     setLoading(true)
-    await createServiceRequest({ ...values, serviceType }, accessToken)
+    await createServiceRequest({ ...values, serviceType })
     setLoading(false)
   }
 

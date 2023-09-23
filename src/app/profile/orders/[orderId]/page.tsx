@@ -6,7 +6,6 @@ import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
 import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
-import { Skeleton } from '@/components/ui/skeleton'
 
 interface PageProps {
     params: {
@@ -16,13 +15,13 @@ interface PageProps {
 
 const OrderDetails = async ({ params: { orderId } }: PageProps) => {
     const cookieStore = cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
-    const service: Service = await fetchOrderWithId(accessToken, orderId)
+    const session = cookieStore.get('sid')?.value
+    const service: Service = await fetchOrderWithId(session!, orderId)
 
     return (
         <main className='flex justify-between flex-col xl:flex-row items-center py-5 px-8 w-full'>
-            <ServiceInfo service={service} accessToken={accessToken!} />
-            <AppliedServiceProviders providers={service.PotentialProviders} service={service} accessToken={accessToken!} />
+            <ServiceInfo service={service} />
+            <AppliedServiceProviders providers={service.PotentialProviders} service={service} session={session!} />
         </main>
     )
 }
@@ -68,20 +67,20 @@ const Progress = ({ user, service }: Props) => {
         }</>)
 }
 
-const AppliedServiceProviders = ({ providers, service, accessToken }: { providers: Provider[], service: Service, accessToken: string }) => {
+const AppliedServiceProviders = ({ providers, service, session }: { providers: Provider[], service: Service, session: string }) => {
     return (
         <>
             {providers.length > 0 && <section className='flex-1 flex flex-col justify-center items-center overflow-hidden overflow-y-scroll py-10 gap-10 scrollbar-hide'>
                 <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
                 <hr className="border-1 w-44 border-gray-400" />
                 {providers.map((provider, i) => (
-                    <PotentialProvidersCard service={service} accessToken={accessToken!} provider={provider} key={i} />
+                    <PotentialProvidersCard service={service} session={session!} provider={provider} key={i} />
                 ))}
             </section>}</>
     )
 }
 
-const ServiceInfo = ({ service, accessToken }: { service: Service, accessToken: string }) => {
+const ServiceInfo = ({ service }: { service: Service }) => {
     const user = store.getState().user.user
     return (
         <section className='flex-1 lg:h-[50vh] gap-5 flex flex-col justify-between items-center'>
@@ -103,7 +102,7 @@ const ServiceInfo = ({ service, accessToken }: { service: Service, accessToken: 
                         <p>{service.LegalProviderId.username}</p>
                     </> : (<p className='text-red-500 font-semibold'>No Service Provider Assigned</p>)}
                 </div>
-                <ActionButtons user={user} accessToken={accessToken!} service={service} />
+                <ActionButtons user={user} service={service} />
                 <Progress user={user} service={service} />
             </div>
         </section>

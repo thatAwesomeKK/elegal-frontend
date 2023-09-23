@@ -10,9 +10,9 @@ const permanentMarker = Permanent_Marker({ subsets: ['latin'], weight: '400' })
 
 const Orders = async () => {
     const cookieStore = cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
+    const session = cookieStore.get('sid')?.value
 
-    const orders: Service[] = await fetchProfileServiceRequest(accessToken)
+    const orders: Service[] = await fetchProfileServiceRequest(session!)
 
     return (
         <main className="lg:max-w-7xl mx-auto py-10">

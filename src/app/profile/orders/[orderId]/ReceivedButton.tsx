@@ -5,14 +5,13 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 
 interface PageProps {
-    accessToken: string
     serviceId: string
 }
 
-const ReceivedButton = ({ accessToken, serviceId }: PageProps) => {
+const ReceivedButton = ({ serviceId }: PageProps) => {
     const router = useRouter()
     const onSubmit = async () => {
-        await receivedService(accessToken, serviceId)
+        await receivedService(serviceId)
         router.refresh()
     }
     return (

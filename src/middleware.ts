@@ -3,9 +3,9 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const accessToken = request.cookies.get("accessToken")?.value;
+  const session = request.cookies.get("sid")?.value;
 
-  const isLoggedIn = !!accessToken;
+  const isLoggedIn = !!session;
 
   if (pathname.startsWith("/auth") && isLoggedIn) {
     console.log("middleware: redirecting to /");

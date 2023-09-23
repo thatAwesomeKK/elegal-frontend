@@ -7,11 +7,11 @@ import { store } from '@/lib/redux/store'
 
 interface PageProps {
     service: Service
-    accessToken?: string
+    session?: string
     provider: Provider
 }
 
-const PotentialProvidersCard = ({ service, accessToken, provider }: PageProps) => {
+const PotentialProvidersCard = ({ service, session, provider }: PageProps) => {
     const user = store.getState().user.user
     return (
         <>
@@ -34,7 +34,7 @@ const PotentialProvidersCard = ({ service, accessToken, provider }: PageProps) =
                     </p>
                 </CardContent>
                 <CardFooter>
-                    {accessToken && <ChooseProviderButton accessToken={accessToken} service={service} provider={provider}/>}
+                    {session && <ChooseProviderButton service={service} provider={provider} />}
                 </CardFooter>
             </Card>
         </>

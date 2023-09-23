@@ -1,14 +1,16 @@
-
 import ServiceCard from '../AvailableServices/ServiceCard'
 import { Libre_Baskerville } from 'next/font/google'
 
 const libreBaskerville = Libre_Baskerville({ subsets: ['latin', 'latin-ext'], weight: ['400'], preload: true })
 
 import { Service } from '@/lib/typings'
+import { cookies } from 'next/headers'
+import { fetchMatchServiceRequest } from '@/lib/apiCalls/service'
 
-const BestMatchServices = async ({ services }: {
-    services: Service[]
-}) => {
+const BestMatchServices = async () => {
+    const cookieStore = cookies()
+    const session = cookieStore.get('sid')?.value
+    const services: Service[] = await fetchMatchServiceRequest(session)
 
     return (
         <section className='my-10 mx-20'>

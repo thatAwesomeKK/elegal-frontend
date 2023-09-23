@@ -6,16 +6,15 @@ import ReceivedButton from './ReceivedButton'
 
 interface PageProps {
     user: User
-    accessToken: string
     service: Service
 }
 
-const ActionButtons = ({ user, accessToken, service }: PageProps) => {
+const ActionButtons = ({ user, service }: PageProps) => {
     return (
         <>
-            {(user?.role === 'buyer' && service.life === 'assigned') && <PaymentButton accessToken={accessToken!} service={service} />}
-            {(user?.role === 'service-provider' && service.life === 'paid') && <CompletedButton accessToken={accessToken!} serviceId={service._id} />}
-            {(user?.role === 'buyer' && service.life === 'completed') && <ReceivedButton accessToken={accessToken!} serviceId={service._id} />}
+            {(user?.role === 'buyer' && service.life === 'assigned') && <PaymentButton service={service} />}
+            {(user?.role === 'service-provider' && service.life === 'paid') && <CompletedButton serviceId={service._id} />}
+            {(user?.role === 'buyer' && service.life === 'completed') && <ReceivedButton serviceId={service._id} />}
         </>
     )
 }

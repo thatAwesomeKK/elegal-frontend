@@ -6,18 +6,17 @@ import { Provider, Service } from '@/lib/typings'
 import { useRouter } from 'next/navigation'
 
 interface PageProps {
-    accessToken: string
     service: Service
     provider: Provider
 }
 
-const ChooseProviderButton = ({ accessToken, service, provider }: PageProps) => {
+const ChooseProviderButton = ({ service, provider }: PageProps) => {
     const [loading, setLoading] = useState(false)
 
     const router = useRouter()
     const onSubmit = async () => {
         setLoading(true)
-        await assignServiceProvider(accessToken, service._id, provider.uid?._id as string, provider.price)
+        await assignServiceProvider(service._id, provider.uid?._id as string, provider.price)
         router.refresh()
         setLoading(false)
     }

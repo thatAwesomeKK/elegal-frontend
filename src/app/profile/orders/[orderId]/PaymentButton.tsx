@@ -6,14 +6,13 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 
 interface PageProps {
-    accessToken: string
     service: Service
 }
 
-const PaymentButton = ({ accessToken, service }: PageProps) => {
+const PaymentButton = ({ service }: PageProps) => {
     const router = useRouter()
     const onSubmit = async () => {
-        await payForService(accessToken, service._id)
+        await payForService(service._id)
         router.refresh()
     }
     return (

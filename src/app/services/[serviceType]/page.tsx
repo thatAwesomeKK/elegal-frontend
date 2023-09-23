@@ -39,7 +39,7 @@ const services = [
 
 const Services = async ({ params: { serviceType } }: PageProps) => {
     const cookieStore = cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
+    const session = cookieStore.get('sid')?.value
     return (
         <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px] px-4 md:px-0' >
             <Tabs
@@ -55,7 +55,7 @@ const Services = async ({ params: { serviceType } }: PageProps) => {
                 {
                     services.map((service, index) => {
                         return <TabsContent key={index} value={service.value}>
-                            <ServicesForm accessToken={accessToken} serviceType={service.value} />
+                            <ServicesForm session={session} serviceType={service.value} />
                         </TabsContent>
                     })
                 }

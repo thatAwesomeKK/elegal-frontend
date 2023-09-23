@@ -9,32 +9,32 @@ else host_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const base_url = `${host_url}/api/service-request`;
 
-export const createServiceRequest = async (data: any, accessToken: any) => {
+export const createServiceRequest = async (data: any) => {
   const id = toast.loading("Please Wait...");
   try {
     const payload = await fetch(`${base_url}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
+      credentials: "include",
       body: JSON.stringify(data),
     }).then((res) => res.json());
-    console.log(payload);
     alertCall(payload, id);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const fetchProfileServiceRequest = async (accessToken: any) => {
+export const fetchProfileServiceRequest = async (session: string) => {
   try {
     const payload = await fetch(`${base_url}/profile-fetch`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
+        Cookie: `sid=${session}`,
       },
+      credentials: "include",
     }).then((res) => res.json());
     return payload.message;
   } catch (error) {
@@ -42,14 +42,15 @@ export const fetchProfileServiceRequest = async (accessToken: any) => {
   }
 };
 
-export const fetchMatchServiceRequest = async (accessToken: any) => {
+export const fetchMatchServiceRequest = async (session?: string) => {
   try {
     const payload = await fetch(`${base_url}/fetch-bestmatch`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
+        Cookie: `sid=${session}`,
       },
+      credentials: "include",
     }).then((res) => res.json());
     return payload.message;
   } catch (error) {
@@ -57,14 +58,15 @@ export const fetchMatchServiceRequest = async (accessToken: any) => {
   }
 };
 
-export const fetchAvailableServiceRequest = async (accessToken: any) => {
+export const fetchAvailableServiceRequest = async (session?: string) => {
   try {
     const payload = await fetch(`${base_url}/fetch-available`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
+        Cookie: `sid=${session}`,
       },
+      credentials: "include",
     }).then((res) => res.json());
     return payload.message;
   } catch (error) {
@@ -73,7 +75,7 @@ export const fetchAvailableServiceRequest = async (accessToken: any) => {
 };
 
 export const fetchServiceWithId = async (
-  accessToken: any,
+  session: string,
   serviceId: string
 ) => {
   try {
@@ -83,8 +85,9 @@ export const fetchServiceWithId = async (
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Cookie: `sid=${session}`,
         },
+        credentials: "include",
       }
     ).then((res) => res.json());
     return payload.message;
@@ -93,10 +96,7 @@ export const fetchServiceWithId = async (
   }
 };
 
-export const fetchOrderWithId = async (
-  accessToken: any,
-  serviceId: string
-) => {
+export const fetchOrderWithId = async (session: string, serviceId: string) => {
   try {
     const payload = await fetch(
       `${base_url}/fetch-with-orderid?serviceId=${serviceId}`,
@@ -104,8 +104,9 @@ export const fetchOrderWithId = async (
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Cookie: `sid=${session}`,
         },
+        credentials: "include",
       }
     ).then((res) => res.json());
     return payload.message;
@@ -114,19 +115,15 @@ export const fetchOrderWithId = async (
   }
 };
 
-export const applyToService = async (
-  accessToken: string,
-  serviceId: string,
-  price: string
-) => {
+export const applyToService = async (serviceId: string, price: string) => {
   const id = toast.loading("Please Wait....");
   try {
     const payload = await fetch(`${base_url}/apply`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
+      credentials: "include",
       body: JSON.stringify({ serviceId, price }),
     }).then((res) => res.json());
     alertCall(payload, id);
@@ -136,10 +133,9 @@ export const applyToService = async (
 };
 
 export const assignServiceProvider = async (
-  accessToken: string,
   serviceId: string,
   serviceProviderId: string,
-  price: string,
+  price: string
 ) => {
   const id = toast.loading("Please Wait....");
   try {
@@ -147,8 +143,8 @@ export const assignServiceProvider = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
+      credentials: "include",
       body: JSON.stringify({ serviceId, price, serviceProviderId }),
     }).then((res) => res.json());
     alertCall(payload, id);
@@ -157,15 +153,15 @@ export const assignServiceProvider = async (
   }
 };
 
-export const payForService = async (accessToken: string, serviceId: string) => {
+export const payForService = async (serviceId: string) => {
   try {
     const payload = await fetch(`${base_url}/service-life?life=paid`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({ serviceId }),
+      credentials: "include",
     }).then((res) => res.json());
     return payload.message;
   } catch (error) {
@@ -173,18 +169,15 @@ export const payForService = async (accessToken: string, serviceId: string) => {
   }
 };
 
-export const completeService = async (
-  accessToken: string,
-  serviceId: string
-) => {
+export const completeService = async (serviceId: string) => {
   try {
     const payload = await fetch(`${base_url}/service-life?life=completed`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({ serviceId }),
+      credentials: "include",
     }).then((res) => res.json());
     return payload.message;
   } catch (error) {
@@ -192,17 +185,14 @@ export const completeService = async (
   }
 };
 
-export const receivedService = async (
-  accessToken: string,
-  serviceId: string
-) => {
+export const receivedService = async (serviceId: string) => {
   try {
     const payload = await fetch(`${base_url}/service-life?life=received`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
+      credentials: "include",
       body: JSON.stringify({ serviceId }),
     }).then((res) => res.json());
     return payload.message;

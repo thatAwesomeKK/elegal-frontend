@@ -8,17 +8,15 @@ import { cookies } from 'next/headers'
 import { Service } from '@/lib/typings'
 
 const CheckUserRoleService = async () => {
-    const user = store.getState().user.user
-    const cookieStore = cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
-    const services: Service[] = await fetchMatchServiceRequest(accessToken)
     
+    const user = store.getState().user.user
+
     return (
         <>
             {(!user || user?.role === 'buyer') ? <Services />
                 :
                 (<>
-                    {services && <BestMatchServices services={services} />}
+                    <BestMatchServices />
                     <hr className="border-1 border-gray-300" />
                     <AvailableServices />
                 </>)}

@@ -3,23 +3,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from "zod"
-import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
-import { ComboBoxOnForm } from '../ui/CustomShadcn/ComboBoxOnForm'
+import { Form } from '../ui/form'
 import { specializations, type as serviceProvider } from '@/lib/utils'
 import { Button } from '../ui/button'
 import { updateProfile } from '@/lib/apiCalls/profile'
-import { Label } from '../ui/label'
 import { useRouter } from 'next/navigation'
 import { City, ICity, IState, State } from 'country-state-city'
 import CustomForm from './CustomFormComponents/CustomForm'
 
 interface PageProps {
     user: any
-    accessToken: string
 }
 
-const ProfileForm = ({ user, accessToken }: PageProps) => {
+const ProfileForm = ({ user }: PageProps) => {
     const [loading, setLoading] = useState(false)
     const [state, setState] = useState<IState[]>()
     const [city, setCity] = useState<ICity[]>()
@@ -32,7 +28,7 @@ const ProfileForm = ({ user, accessToken }: PageProps) => {
         middle_name: z.string().optional().optional().nullable(),
         sur_name: z.string().min(4).max(50).optional().nullable(),
         email: z.string().email(),
-        phone_number: z.number().min(10).max(10).optional().nullable(),
+        phone_number: z.string().min(10).max(10).optional().nullable(),
         state: z.string().nullable(),
         city: z.string().nullable(),
         type: z.string().optional().nullable(),
@@ -50,7 +46,7 @@ const ProfileForm = ({ user, accessToken }: PageProps) => {
             middle_name: user.middleName || "",
             email: user.email || "",
             sur_name: user.surName || "",
-            phone_number: user.phoneNumber || null,
+            phone_number: user.phoneNumber || "",
             state: user.state || "",
             city: user.city || "",
             type: user.type || "",
@@ -226,7 +222,7 @@ const ProfileForm = ({ user, accessToken }: PageProps) => {
 
         const { email, ...rest } = values
 
-        await updateProfile(rest, accessToken)
+        await updateProfile(rest)
         setLoading(false)
         router.refresh()
     }

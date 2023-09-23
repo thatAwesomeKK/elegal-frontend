@@ -9,7 +9,6 @@ import { Textarea } from '../ui/textarea'
 import { createFeedback } from '@/lib/apiCalls/feedback'
 
 interface PageProps {
-    accessToken: string
     orderId: string
 }
 
@@ -17,7 +16,7 @@ const formSchema = z.object({
     description: z.string().min(20),
 })
 
-const FeedbackForm = ({ accessToken, orderId }: PageProps) => {
+const FeedbackForm = ({ orderId }: PageProps) => {
 
     const [loading, setLoading] = useState(false)
 
@@ -30,7 +29,7 @@ const FeedbackForm = ({ accessToken, orderId }: PageProps) => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
-        await createFeedback(accessToken, values.description, orderId)
+        await createFeedback(values.description, orderId)
         setLoading(false)
     }
     return (

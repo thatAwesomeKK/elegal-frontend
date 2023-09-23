@@ -6,8 +6,8 @@ import { cookies } from "next/headers"
 
 async function AuthProvider({ children }: { children: React.ReactNode }) {
     const cookieStore = cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
-    const user = await getProfileRedux(accessToken!)
+    const session = cookieStore.get('sid')?.value
+    const user = await getProfileRedux(session!)
 
     store.dispatch(storeUser(user))
 
