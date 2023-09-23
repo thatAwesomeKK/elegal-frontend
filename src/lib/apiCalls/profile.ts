@@ -9,7 +9,7 @@ else host_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const base_url = `${host_url}/api/profile`;
 
-export const getProfileRedux = async (session: string) => {
+export const getProfileRedux = async (session?: string) => {
   try {
     const payload = await fetch(`${base_url}/fetch-min`, {
       method: "GET",
@@ -27,7 +27,7 @@ export const getProfileRedux = async (session: string) => {
   }
 };
 
-export const getProfile = async (session: string) => {
+export const getProfile = async (session?: string) => {
   try {
     const payload = await fetch(`${base_url}/`, {
       method: "GET",

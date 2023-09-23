@@ -97,14 +97,13 @@ export const changePassword = async (token: string, password: string) => {
   }
 };
 
-export const logout = async (session: any) => {
+export const logout = async () => {
   const id = toast.loading("Please Wait...");
   try {
     const payload = await fetch(`${base_url}/logout`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Cookie: `sid=${session}`,
       },
       credentials: "include",
     }).then((res) => res.json());

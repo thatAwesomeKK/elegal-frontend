@@ -6,6 +6,7 @@ import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
 import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
+import { setTimeout } from 'timers/promises'
 
 interface PageProps {
     params: {
@@ -19,7 +20,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
     const service: Service = await fetchOrderWithId(session!, orderId)
 
     return (
-        <main className='flex justify-between flex-col xl:flex-row items-center py-5 px-8 w-full'>
+        <main className='flex justify-between flex-col xl:flex-row items-center py-5 px-8 w-full h-[93.5vh]'>
             <ServiceInfo service={service} />
             <AppliedServiceProviders providers={service.PotentialProviders} service={service} session={session!} />
         </main>
@@ -83,8 +84,8 @@ const AppliedServiceProviders = ({ providers, service, session }: { providers: P
 const ServiceInfo = ({ service }: { service: Service }) => {
     const user = store.getState().user.user
     return (
-        <section className='flex-1 lg:h-[50vh] gap-5 flex flex-col justify-between items-center'>
-            <div className='bg-white shadow-lg p-10 h-full w-full 2xl:w-[70%] xl:w-[90%] lg:w-[60%] md:w-[60%] flex flex-col justify-between items-start'>
+        <section className='flex-1 lg:h-[50%] gap-5 flex flex-col justify-center items-center'>
+            <div className='rounded-lg bg-white shadow-lg p-10 lg:h-[70%] xl:h-full h-[60%] w-full 2xl:w-[40%] xl:w-[50%] lg:w-[60%] md:w-[80%] flex flex-col justify-between items-start'>
                 <div>
                     <h2 className='text-3xl font-bold capitalize'>{service.type}({service.caseType})</h2>
                 </div>
