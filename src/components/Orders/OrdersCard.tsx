@@ -36,7 +36,7 @@ const OrdersCard = ({ order, user }: PageProps) => {
                 <CardHeader>
                     <CardTitle className='flex flex-col gap-2'>
                         <div>
-                            {order.life === 'received' ? <Badge className='w-fit bg-green-500 text-center'>Completed</Badge> : <Badge className='w-fit text-center'>In Progress</Badge>}
+                            {order.life === 'received' ? <Badge className='w-fit bg-green-500 text-center hover:bg-green-500'>Completed</Badge> : <Badge className='w-fit text-center'>In Progress</Badge>}
                             {(order.life === 'received' && !order.feedback) && <Link className='ml-2 text-sm font-normal hover:text-blue-400' href={`/feedback?orderId=${order._id}`}>Give us feedback</Link>}
                         </div>
                         <span className='capitalize font-bold'>{order.type}({order.caseType})</span>
