@@ -227,7 +227,6 @@ const ProfileForm = ({ user }: PageProps) => {
         router.refresh()
     }
 
-
     return (
         <Form {...profileForm}>
             <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="w-full shadow-lg rounded-lg bg-white px-5 pb-5 pt-3">

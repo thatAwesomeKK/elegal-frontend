@@ -1,6 +1,4 @@
 import ProfileForm from '@/components/Forms/ProfileForm'
-import UpdatePersonalUserForm from '@/components/Forms/UpdatePersonalUserForm'
-import UpdateProfessionalUserForm from '@/components/Forms/UpdateProfessionalUserForm'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getProfile } from '@/lib/apiCalls/profile'
 import { cookies } from 'next/headers'
