@@ -2,21 +2,27 @@
 import { Button } from '@/components/ui/button'
 import { payForService } from '@/lib/apiCalls/service'
 import { Service } from '@/lib/typings'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Loader2 } from 'lucide-react'
 
 interface PageProps {
     service: Service
 }
 
 const PaymentButton = ({ service }: PageProps) => {
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
     const onSubmit = async () => {
+        setLoading(true)
         await payForService(service._id)
+        setLoading(false)
         router.refresh()
     }
     return (
-        <Button onClick={onSubmit} className='w-40'>Pay ₹{service.price}</Button>
+        <Button onClick={onSubmit} className='w-36' disabled={loading}>
+            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Paying...</> : <>Pay ₹{service.price}</>}
+        </Button>
     )
 }
 

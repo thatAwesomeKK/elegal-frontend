@@ -5,6 +5,7 @@ import { Progress } from '../ui/progress'
 import Link from 'next/link'
 import { Service, User } from '@/lib/typings'
 import { Badge } from '../ui/badge'
+import { SuccessProgress } from '../ui/CustomShadcn/SuccessProgress'
 
 interface PageProps {
     order: Service
@@ -32,7 +33,7 @@ const OrdersCard = ({ order, user }: PageProps) => {
 
     return (
         <>
-            <Card className="w-96 h-96 flex flex-col justify-between">
+            <Card className={`w-96 h-96 flex flex-col justify-between border-2 ${order.life === 'received' ? "border-green-300" : "border-blue-400"}`}>
                 <CardHeader>
                     <CardTitle className='flex flex-col gap-2'>
                         <div>
@@ -48,7 +49,7 @@ const OrdersCard = ({ order, user }: PageProps) => {
                 </CardHeader>
                 <CardContent>
                     <p><span className='font-medium'>Stage:</span> {(user?.role === "buyer" && order.life === 'received') ? 'received' : order.life}</p>
-                    <Progress className='' value={lifeStage(order.life)} />
+                    {order.life === 'received' ? <SuccessProgress /> : <Progress value={lifeStage(order.life)} />}
                     <div className='flex items-center gap-3 mt-3'>
                         <p className='font-semibold text-lg'>Assigned To:</p>
                         {order.LegalProviderId ? <>
@@ -62,7 +63,7 @@ const OrdersCard = ({ order, user }: PageProps) => {
                     {(order.life === 'received' && !order.rating) && <Link className='ml-2 text-sm font-normal hover:text-blue-400' href={`/profile/rating?legalProviderId=${order.LegalProviderId?._id}`}>Give me rating</Link>}
                 </CardContent>
                 <CardFooter>
-                    <Link className='bg-blue-500 py-3 px-4 rounded-xl w-full text-center' href={`orders/${order._id}`}>Know More</Link>
+                    <Link className={`${order.life === 'received' ? "bg-green-400":"bg-blue-500"} py-3 px-4 rounded-xl w-full text-center`} href={`orders/${order._id}`}>Know More</Link>
                 </CardFooter>
             </Card>
         </>
