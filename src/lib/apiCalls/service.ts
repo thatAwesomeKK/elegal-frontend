@@ -132,6 +132,26 @@ export const fetchOrderWithId = async (session: string, serviceId: string) => {
   }
 };
 
+export const fetchAppliedProviders = async (session: string, serviceId: string) => {
+  try {
+    const payload = await fetch(
+      `${base_url}/fetch-applied-providers?serviceId=${serviceId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `sid=${session}`,
+        },
+        credentials: "include",
+        cache: "no-store",
+      }
+    ).then((res) => res.json());
+    return payload.message;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const applyToService = async (serviceId: string, price: string) => {
   const id = toast.loading("Please Wait....");
   try {

@@ -1,13 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { fetchOrderWithId } from '@/lib/apiCalls/service'
-import { Provider, Service, User } from '@/lib/typings'
+import { Service, User } from '@/lib/typings'
 import { cookies } from 'next/headers'
 import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
-import { setTimeout } from 'timers/promises'
 import Image from 'next/image'
-// import AppliedServiceProviders from './AppliedServiceProviders'
 import dynamic from 'next/dynamic'
 const AppliedServiceProviders = dynamic(() => import('./AppliedServiceProviders'), { ssr: false, loading: () => <p>Loading....</p> })
 
@@ -28,7 +26,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
             <section className='flex-1 flex flex-col justify-center items-center py-10 h-[80vh]'>
                 <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
                 <hr className="border-1 w-44 border-gray-400" />
-                <AppliedServiceProviders providers={service.PotentialProviders} service={service} />
+                <AppliedServiceProviders service={service} />
             </section>
         </main>
     )
@@ -75,21 +73,6 @@ const Progress = ({ user, service }: Props) => {
         }</>)
 }
 
-
-// const AppliedServiceProviders = ({ providers, service, session }: { providers: Provider[], service: Service, session: string }) => {
-//     return (
-//         <>
-//             <section className='flex-1 flex flex-col justify-center items-center py-10 h-[80vh]'>
-//                 <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
-//                 <hr className="border-1 w-44 border-gray-400" />
-//                 <div className='flex items-center flex-col overflow-y-scroll scrollbar-hide mt-5 py-3'>
-//                     {providers.length > 0 && providers.map((provider, i) => (
-//                         <PotentialProvidersCard service={service} session={session!} provider={provider} key={i} />
-//                     ))}
-//                 </div>
-//             </section></>
-//     )
-// }
 
 const ServiceInfo = ({ service }: { service: Service }) => {
     const user = store.getState().user.user
