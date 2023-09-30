@@ -5,8 +5,11 @@ import { cookies } from 'next/headers'
 import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
-import PotentialProvidersCard from '@/components/Orders/PotentialProvidersCard'
 import { setTimeout } from 'timers/promises'
+import Image from 'next/image'
+// import AppliedServiceProviders from './AppliedServiceProviders'
+import dynamic from 'next/dynamic'
+const AppliedServiceProviders = dynamic(() => import('./AppliedServiceProviders'), { ssr: false, loading: () => <p>Loading....</p> })
 
 interface PageProps {
     params: {
@@ -21,8 +24,12 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
 
     return (
         <main className='flex justify-between flex-col xl:flex-row items-center py-5 px-8 w-full h-[93.5vh]'>
-            <ServiceInfo service={service} />
-            <AppliedServiceProviders providers={service.PotentialProviders} service={service} session={session!} />
+            <ServiceInfo service={service} />\
+            <section className='flex-1 flex flex-col justify-center items-center py-10 h-[80vh]'>
+                <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
+                <hr className="border-1 w-44 border-gray-400" />
+                <AppliedServiceProviders providers={service.PotentialProviders} service={service} />
+            </section>
         </main>
     )
 }
@@ -68,18 +75,21 @@ const Progress = ({ user, service }: Props) => {
         }</>)
 }
 
-const AppliedServiceProviders = ({ providers, service, session }: { providers: Provider[], service: Service, session: string }) => {
-    return (
-        <>
-            <section className='flex-1 flex flex-col justify-center items-center overflow-hidden overflow-y-scroll py-10 gap-10 scrollbar-hide'>
-                <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
-                <hr className="border-1 w-44 border-gray-400" />
-                {providers.length > 0 && providers.map((provider, i) => (
-                    <PotentialProvidersCard service={service} session={session!} provider={provider} key={i} />
-                ))}
-            </section></>
-    )
-}
+
+// const AppliedServiceProviders = ({ providers, service, session }: { providers: Provider[], service: Service, session: string }) => {
+//     return (
+//         <>
+//             <section className='flex-1 flex flex-col justify-center items-center py-10 h-[80vh]'>
+//                 <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
+//                 <hr className="border-1 w-44 border-gray-400" />
+//                 <div className='flex items-center flex-col overflow-y-scroll scrollbar-hide mt-5 py-3'>
+//                     {providers.length > 0 && providers.map((provider, i) => (
+//                         <PotentialProvidersCard service={service} session={session!} provider={provider} key={i} />
+//                     ))}
+//                 </div>
+//             </section></>
+//     )
+// }
 
 const ServiceInfo = ({ service }: { service: Service }) => {
     const user = store.getState().user.user
@@ -96,9 +106,9 @@ const ServiceInfo = ({ service }: { service: Service }) => {
                 <p><span className='font-medium text-lg'>Location: </span> {service.city}, {service.state}</p>
                 <div className='flex gap-3 items-center'>
                     {service.LegalProviderId ? <>
-                        <Avatar>
+                        <Avatar className='border-2 border-gray-300 w-12 h-12'>
                             <AvatarImage src={service.LegalProviderId.pfp} />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarFallback><Image className='object-cover' src="/assets/no_profile.png" alt='' height={50} width={50} /></AvatarFallback>
                         </Avatar>
                         <p>{service.LegalProviderId.username}</p>
                     </> : (<p className='text-red-500 font-semibold'>No Service Provider Assigned</p>)}

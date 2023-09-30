@@ -4,6 +4,7 @@ import { Provider, Service } from '@/lib/typings'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import ChooseProviderButton from './ChooseProviderButton'
 import { store } from '@/lib/redux/store'
+import Image from 'next/image'
 
 interface PageProps {
     service: Service
@@ -20,7 +21,7 @@ const PotentialProvidersCard = ({ service, session, provider }: PageProps) => {
                     <CardTitle className='flex flex-row gap-2 items-center'>
                         <Avatar>
                             <AvatarImage src={provider.uid?.pfp} />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarFallback><Image className='object-cover' src="/assets/no_profile.png" alt='' height={50} width={50} /></AvatarFallback>
                         </Avatar>
                         <span className='text-xl font-semibold'>{provider.uid?.username}</span>
                         {provider.uid?._id === user?._id && <span className='text-sm font-light'>(You)</span>}
