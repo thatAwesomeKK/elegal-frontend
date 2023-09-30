@@ -39,7 +39,6 @@ export const fetchProfileServiceRequest = async (
             "Content-Type": "application/json",
             Cookie: `sid=${session}`,
           },
-          cache: "no-store",
         }
       : {
           method: "GET",
@@ -47,7 +46,6 @@ export const fetchProfileServiceRequest = async (
             "Content-Type": "application/json",
           },
           credentials: "include",
-          cache: "no-store",
         };
 
     const payload = await fetch(
@@ -125,6 +123,7 @@ export const fetchOrderWithId = async (session: string, serviceId: string) => {
           Cookie: `sid=${session}`,
         },
         credentials: "include",
+        cache: "no-store",
       }
     ).then((res) => res.json());
     return payload.message;
