@@ -26,17 +26,35 @@ export const createServiceRequest = async (data: any) => {
   }
 };
 
-export const fetchProfileServiceRequest = async (session: string) => {
+export const fetchProfileServiceRequest = async (
+  session?: string,
+  limit?: number,
+  page?: number
+) => {
   try {
-    const payload = await fetch(`${base_url}/profile-fetch`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: `sid=${session}`,
-      },
-      credentials: "include",
-    }).then((res) => res.json());
-    return payload.message;
+    const options: RequestInit = isServer
+      ? {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: `sid=${session}`,
+          },
+          cache: "no-store",
+        }
+      : {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          cache: "no-store",
+        };
+
+    const payload = await fetch(
+      `${base_url}/profile-fetch?limit=${limit}&page=${page}`,
+      options
+    ).then((res) => res.json());
+    return payload.message.orders;
   } catch (error) {
     console.log(error);
   }

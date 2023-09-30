@@ -1,18 +1,11 @@
 import { cookies } from 'next/headers'
 import React from 'react'
-import ServicesForm from '@/components/Forms/ServicesForm'
 import {
-    Tabs,
-    TabsList,
-    TabsTrigger,
     TabsContent
 } from "@/components/ui/tabs";
-import Link from 'next/link'
-interface PageProps {
-    params: {
-        serviceType: string
-    }
-}
+import dynamic from 'next/dynamic';
+const ServicesForm = dynamic(() => import('@/components/Forms/ServicesForm'), { ssr: false, loading: () => <p>Loading....</p> })
+
 
 const services = [
     {
@@ -37,30 +30,21 @@ const services = [
     }
 ]
 
-const Services = async ({ params: { serviceType } }: PageProps) => {
+const Services = async () => {
     const cookieStore = cookies()
     const session = cookieStore.get('sid')?.value
+
     return (
-        <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px] px-4 md:px-0' >
-            <Tabs
-                className='w-full sm:w-[580px] h-max rounded-lg'
-                defaultValue={serviceType as string || "advocate"}>
-                <TabsList className='h-min flex flex-wrap md:flex-nowrap'>
-                    {
-                        services.map((service, index) => {
-                            return <TabsTrigger key={index} value={service.value} className=' md:w-full'><Link href={`/services/${service.value}`} replace>{service.name}</Link></TabsTrigger>
-                        })
-                    }
-                </TabsList>
-                {
-                    services.map((service, index) => {
-                        return <TabsContent key={index} value={service.value}>
-                            <ServicesForm session={session} serviceType={service.value} />
-                        </TabsContent>
-                    })
-                }
-            </Tabs>
-        </section>
+        <>
+            {
+                services.map((service, index) => {
+                    return <TabsContent key={index} value={service.value}>
+                        <ServicesForm session={session} serviceType={service.value} />
+                    </TabsContent>
+                })
+            }
+
+        </>
     )
 
 

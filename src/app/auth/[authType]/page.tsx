@@ -1,11 +1,9 @@
-import AuthForms from "@/components/Forms/AuthForm";
 import {
-    Tabs,
-    TabsList,
-    TabsTrigger,
     TabsContent
 } from "@/components/ui/tabs";
+import dynamic from "next/dynamic";
 import { redirect } from 'next/navigation';
+const AuthForms = dynamic(() => import('@/components/Forms/AuthForm'), { ssr: false, loading: () => <p>Loading....</p> })
 
 interface PageProps {
     params: {
@@ -22,46 +20,28 @@ const page = ({ params: { authType }, searchParams: { token } }: PageProps) => {
     }
 
     return (
-        <section className='flex w-full justify-center items-center mt-[20px] md:mt-[80px]'>
-            <Tabs
-                className='w-full sm:w-[472px] h-max rounded-lg'
-                defaultValue={authType || "login"}>
-                <TabsList className='w-full'>
-                    {(authType === "login" || authType === 'register') && (
-                        <>
-                            <TabsTrigger className='w-full' value='login'>Login</TabsTrigger>
-                            <TabsTrigger className='w-full' value='register'>Register</TabsTrigger>
-                        </>
-                    )}
-                    {authType === "forgot-password" && (
-                        <TabsTrigger className='w-full' value='forgot-password'>Forgot Password</TabsTrigger>
-                    )}
-                    {authType === "change-password" && (
-                        <TabsTrigger className='w-full' value='Change-password'>Change Password</TabsTrigger>
-                    )}
-                </TabsList>
-                {(authType === "login" || authType === 'register') && (
-                    <>
-                        <TabsContent value={"register"} className='w-full'>
-                            <AuthForms type={"register"} />
-                        </TabsContent>
-                        <TabsContent value={"login"} className='w-full'>
-                            <AuthForms type={"login"} />
-                        </TabsContent>
-                    </>
-                )}
-                {authType === "forgot-password" &&
-                    <TabsContent value={"forgot-password"} className='w-full'>
-                        <AuthForms type={"forgotPassword"} />
+        <>
+            {(authType === "login" || authType === 'register') && (
+                <>
+                    <TabsContent value={"register"} className='w-full'>
+                        <AuthForms type={"register"} />
                     </TabsContent>
-                }
-                {authType === "change-password" &&
-                    <TabsContent value={"change-password"} className='w-full'>
-                        <AuthForms type={"changePassword"} token={token!} />
+                    <TabsContent value={"login"} className='w-full'>
+                        <AuthForms type={"login"} />
                     </TabsContent>
-                }
-            </Tabs>
-        </section>
+                </>
+            )}
+            {authType === "forgot-password" &&
+                <TabsContent value={"forgot-password"} className='w-full'>
+                    <AuthForms type={"forgotPassword"} />
+                </TabsContent>
+            }
+            {authType === "change-password" &&
+                <TabsContent value={"change-password"} className='w-full'>
+                    <AuthForms type={"changePassword"} token={token!} />
+                </TabsContent>
+            }
+        </>
     )
 }
 

@@ -22,11 +22,11 @@ const Navbar = async () => {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <Image src={user?.pfp || "/assets/no_profile.png"} alt={user?.username || "Profile Picture"}  width={1} height={1}/>
+                            <Image src={user?.pfp || "/assets/no_profile.png"} alt={user?.username || "Profile Picture"} width={25} height={25} />
                         </div>
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52">
-                        <UserButton user={user}/>
+                        <UserButton user={user} />
                     </ul>
                 </div>
             </div>

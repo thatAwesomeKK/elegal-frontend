@@ -59,3 +59,20 @@ export const updateProfile = async (data: any) => {
     console.log(error);
   }
 };
+
+export const rateServiceProvider = async (data: any) => {
+  const id = toast.loading("Please Wait...");
+  try {
+    const payload = await fetch(`${base_url}/rate-service`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    }).then((res) => res.json());
+    alertCall(payload, id);
+  } catch (error) {
+    console.log(error);
+  }
+};

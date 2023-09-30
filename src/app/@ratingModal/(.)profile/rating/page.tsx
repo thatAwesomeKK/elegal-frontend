@@ -1,8 +1,15 @@
 import CloseModal from '@/components/ContactUs/CloseModal'
-import ContactUsForm from '@/components/Forms/ContactUsForm'
+import RatingForm from '@/components/Forms/RatingForm'
 import React from 'react'
 
-const ContactModal = () => {
+interface PageProps {
+    searchParams: {
+        legalProviderId: string
+    }
+}
+
+const RatingModal = ({ searchParams: { legalProviderId } }: PageProps) => {
+
     return (
         <div className='fixed inset-0 bg-zinc-900/20 z-50'>
             <div className='container flex items-center h-full max-w-2xl mx-auto'>
@@ -10,11 +17,11 @@ const ContactModal = () => {
                     <div className='absolute top-4 right-4'>
                         <CloseModal />
                     </div>
-                    <ContactUsForm />
+                    <RatingForm serviceProviderId={legalProviderId} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default ContactModal
+export default RatingModal

@@ -6,6 +6,7 @@ import ToastProviders from './(Providers)/ToastProvider'
 import { Mooli } from 'next/font/google'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import React from 'react'
 
 
 const mooli = Mooli({ subsets: ['latin', 'latin-ext'], weight: ['400'], preload: true })
@@ -17,10 +18,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  contactModal
+  contactModal,
+  ratingModal
 }: {
   children: React.ReactNode
   contactModal: React.ReactNode
+  ratingModal: React.ReactNode
 }) {
   return (
     <html lang="en">
@@ -29,6 +32,7 @@ export default function RootLayout({
           <ToastProviders>
             <Header />
             {children}
+            {ratingModal}
             {contactModal}
           </ToastProviders>
         </AuthProvider>

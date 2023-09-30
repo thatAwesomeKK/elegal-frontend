@@ -12,6 +12,7 @@ export type Service = {
   city: string;
   life: string;
   feedback?: boolean;
+  rating: boolean;
   PotentialProviders: [Provider];
 };
 

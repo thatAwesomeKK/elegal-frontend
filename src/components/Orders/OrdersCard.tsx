@@ -59,6 +59,7 @@ const OrdersCard = ({ order, user }: PageProps) => {
                             <p>{order.LegalProviderId.username}</p>
                         </> : <p className='text-red-500 font-semibold'>No Service Provider Assigned</p>}
                     </div>
+                    {(order.life === 'received' && !order.rating) && <Link className='ml-2 text-sm font-normal hover:text-blue-400' href={`/profile/rating?legalProviderId=${order.LegalProviderId?._id}`}>Give me rating</Link>}
                 </CardContent>
                 <CardFooter>
                     <Link className='bg-blue-500 py-3 px-4 rounded-xl w-full text-center' href={`orders/${order._id}`}>Know More</Link>
