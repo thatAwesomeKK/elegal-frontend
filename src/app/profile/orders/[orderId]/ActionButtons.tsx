@@ -1,3 +1,4 @@
+'use client'
 import { Service, User } from '@/lib/typings'
 import React from 'react'
 import PaymentButton from './PaymentButton'

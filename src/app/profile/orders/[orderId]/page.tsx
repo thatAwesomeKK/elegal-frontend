@@ -4,10 +4,10 @@ import { Service, User } from '@/lib/typings'
 import { cookies } from 'next/headers'
 import React from 'react'
 import { store } from '@/lib/redux/store'
-import ActionButtons from './ActionButtons'
 import Image from 'next/image'
 import { default as lazyLaod } from 'next/dynamic'
 const AppliedServiceProviders = lazyLaod(() => import('./AppliedServiceProviders'), { ssr: false, loading: () => <p>Loading....</p> })
+const ActionButtons = lazyLaod(() => import('./ActionButtons'), { ssr: false, loading: () => <p>Loading....</p> })
 
 interface PageProps {
     params: {
