@@ -15,8 +15,8 @@ const ReceivedButton = ({ serviceId }: PageProps) => {
     const onSubmit = async () => {
         setLoading(true)
         await receivedService(serviceId)
-        setLoading(false)
         router.refresh()
+        setLoading(false)
     }
     return (
         <Button onClick={onSubmit} className='w-36' disabled={loading}>

@@ -16,8 +16,8 @@ const PaymentButton = ({ service }: PageProps) => {
     const onSubmit = async () => {
         setLoading(true)
         await payForService(service._id)
-        setLoading(false)
         router.refresh()
+        setLoading(false)
     }
     return (
         <Button onClick={onSubmit} className='w-36' disabled={loading}>

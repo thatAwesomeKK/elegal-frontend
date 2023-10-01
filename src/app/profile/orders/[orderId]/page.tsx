@@ -22,7 +22,7 @@ const OrderDetails = async ({ params: { orderId } }: PageProps) => {
 
     return (
         <main className='flex justify-between flex-col xl:flex-row items-center py-5 px-8 w-full h-[93.5vh]'>
-            <ServiceInfo service={service} />\
+            <ServiceInfo service={service} />
             <section className='flex-1 flex flex-col justify-center items-center py-10 h-[80vh]'>
                 <h2 className='font-bold text-3xl text-gray-600'>Applied Service Providers</h2>
                 <hr className="border-1 w-44 border-gray-400" />

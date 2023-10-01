@@ -13,7 +13,7 @@ const AppliedServiceProviders = async ({ service }: { service: Service }) => {
     return (
         <div className='flex items-center flex-col overflow-y-scroll scrollbar-hide mt-5 py-3'>
             {providers.length > 0 && providers.map((provider, i) => (
-                <PotentialProvidersCard service={service} session={session!} provider={provider} key={i} />
+                <PotentialProvidersCard key={i} service={service} session={session!} provider={provider} />
             ))}
         </div>
     )
