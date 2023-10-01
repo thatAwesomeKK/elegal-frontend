@@ -6,8 +6,8 @@ import React from 'react'
 import { store } from '@/lib/redux/store'
 import ActionButtons from './ActionButtons'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
-const AppliedServiceProviders = dynamic(() => import('./AppliedServiceProviders'), { ssr: false, loading: () => <p>Loading....</p> })
+import { default as lazyLaod } from 'next/dynamic'
+const AppliedServiceProviders = lazyLaod(() => import('./AppliedServiceProviders'), { ssr: false, loading: () => <p>Loading....</p> })
 
 interface PageProps {
     params: {
@@ -103,5 +103,5 @@ const ServiceInfo = ({ service }: { service: Service }) => {
     )
 }
 
-
+export const dynamic = 'force-dynamic'
 export default OrderDetails
