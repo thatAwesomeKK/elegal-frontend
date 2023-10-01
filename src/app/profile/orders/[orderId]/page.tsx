@@ -103,5 +103,4 @@ const ServiceInfo = ({ service }: { service: Service }) => {
     )
 }
 
-export const dynamic = 'force-dynamic'
 export default OrderDetails

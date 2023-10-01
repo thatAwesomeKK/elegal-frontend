@@ -124,6 +124,7 @@ export const fetchOrderWithId = async (session: string, serviceId: string) => {
         },
         credentials: "include",
         cache: "no-store",
+        next: { revalidate: 0 },
       }
     ).then((res) => res.json());
     return payload.message;
@@ -132,7 +133,10 @@ export const fetchOrderWithId = async (session: string, serviceId: string) => {
   }
 };
 
-export const fetchAppliedProviders = async (session: string, serviceId: string) => {
+export const fetchAppliedProviders = async (
+  session: string,
+  serviceId: string
+) => {
   try {
     const payload = await fetch(
       `${base_url}/fetch-applied-providers?serviceId=${serviceId}`,
