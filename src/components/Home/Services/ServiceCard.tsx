@@ -13,7 +13,7 @@ interface PageProps {
 export const ServiceCard = ({ image, type, url }: PageProps) => {
     return (
         <Card className='hover:shadow-lg hover:shadow-slate-400'>
-            <Link href={url || '/'} prefetch={false}>
+            <Link href={url || '/'}>
                 <CardContent className='h-[200px] p-0 cursor-pointer w-full relative border-[0.5px] border-gray-300'>
 
                     <Image className='object-cover' src={image} alt={type} fill />

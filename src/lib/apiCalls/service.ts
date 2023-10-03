@@ -123,7 +123,6 @@ export const fetchOrderWithId = async (session: string, serviceId: string) => {
           Cookie: `sid=${session}`,
         },
         credentials: "include",
-        cache: "no-store",
         next: { revalidate: 0 },
       }
     ).then((res) => res.json());
