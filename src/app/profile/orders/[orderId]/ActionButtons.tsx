@@ -4,13 +4,14 @@ import React from 'react'
 import PaymentButton from './PaymentButton'
 import CompletedButton from './CompletedButton'
 import ReceivedButton from './ReceivedButton'
+import { useAppSelector } from '@/lib/redux/store'
 
 interface PageProps {
-    user: User
     service: Service
 }
 
-const ActionButtons = ({ user, service }: PageProps) => {
+const ActionButtons = ({ service }: PageProps) => {
+    const user: User = useAppSelector(store => store.user.user)
     return (
         <>
             {(user?.role === 'buyer' && service.life === 'assigned') && <PaymentButton service={service} />}

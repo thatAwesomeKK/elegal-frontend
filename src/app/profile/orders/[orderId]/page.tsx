@@ -6,7 +6,9 @@ import React from 'react'
 import { store } from '@/lib/redux/store'
 import Image from 'next/image'
 import { default as lazyLaod } from 'next/dynamic'
-const AppliedServiceProviders = lazyLaod(() => import('./AppliedServiceProviders'), { ssr: false, loading: () => <p>Loading....</p> })
+import AppliedServiceProvidersLoading from './AppliedServiceProviderLoading'
+import ReduxProvider from '@/app/(Providers)/ReduxProvider'
+const AppliedServiceProviders = lazyLaod(() => import('./AppliedServiceProviders'), { ssr: false, loading: () => <AppliedServiceProvidersLoading /> })
 const ActionButtons = lazyLaod(() => import('./ActionButtons'), { ssr: false, loading: () => <p>Loading....</p> })
 
 interface PageProps {
@@ -96,7 +98,9 @@ const ServiceInfo = ({ service }: { service: Service }) => {
                         <p>{service.LegalProviderId.username}</p>
                     </> : (<p className='text-red-500 font-semibold'>No Service Provider Assigned</p>)}
                 </div>
-                <ActionButtons user={user} service={service} />
+                <ReduxProvider>
+                    <ActionButtons service={service} />
+                </ReduxProvider>
                 <Progress user={user} service={service} />
             </div>
         </section>

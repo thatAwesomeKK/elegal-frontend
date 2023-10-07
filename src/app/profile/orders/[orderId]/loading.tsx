@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import AppliedServiceProvidersLoading from "./AppliedServiceProviderLoading";
 
 export default function Loading() {
     return (
@@ -13,31 +14,7 @@ export default function Loading() {
                     <Skeleton className="w-full h-44" />
                 </div>
             </section>
-            <section className='flex-1 flex flex-col justify-center items-center'>
-                <h2 className='font-bold text-3xl text-gray-600 text-center'>Applied Service Providers</h2>
-                <hr className="border-1 w-44 border-gray-400 mt-2 mb-5" />
-                <div className="flex flex-col justify-center items-center gap-5">
-                    <PotentialProvidersSkeleton />
-                    <PotentialProvidersSkeleton />
-                    <PotentialProvidersSkeleton />
-                </div>
-            </section>
+            <AppliedServiceProvidersLoading />
         </main>
-    )
-}
-
-const PotentialProvidersSkeleton = () => {
-    return (
-        <div className='w-96 h-fit bg-white rounded-lg px-5 py-6 flex flex-col gap-3'>
-            <div className="flex items-center space-x-4 mb-2">
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <div className="space-y-2">
-                    <Skeleton className="h-4 w-[250px]" />
-                    <Skeleton className="h-4 w-[200px]" />
-                </div>
-            </div>
-            <Skeleton className="h-6 w-20" />
-            <Skeleton className="h-12 w-full" />
-        </div>
     )
 }
