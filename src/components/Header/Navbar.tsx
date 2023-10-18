@@ -2,8 +2,9 @@ import Link from 'next/link'
 import React from 'react'
 import { Kaushan_Script } from 'next/font/google'
 import { store } from '@/lib/redux/store'
+import dynamic from 'next/dynamic'
 import UserButton from './UserButton'
-import Image from 'next/image'
+const UserImage = dynamic(() => import('./UserImage'), { ssr: false })
 
 const kaushanScript = Kaushan_Script({ subsets: ['latin'], weight: '400', preload: true })
 
@@ -21,9 +22,7 @@ const Navbar = async () => {
                 </div> */}
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <Image src={user?.pfp || "/assets/no_profile.png"} alt={user?.username || "Profile Picture"} width={25} height={25} />
-                        </div>
+                        <UserImage pfp={user?.pfp} />
                     </label>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52">
                         <UserButton user={user} />
@@ -33,5 +32,7 @@ const Navbar = async () => {
         </nav>
     )
 }
+
+
 
 export default Navbar
