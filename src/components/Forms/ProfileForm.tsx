@@ -219,9 +219,7 @@ const ProfileForm = ({ user }: PageProps) => {
 
     const onProfileSubmit = async (values: z.infer<typeof profileSchema>) => {
         setLoading(true)
-
         const { email, ...rest } = values
-
         await updateProfile(rest)
         setLoading(false)
         router.refresh()
