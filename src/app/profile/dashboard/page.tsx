@@ -1,7 +1,9 @@
-import ProfileForm from '@/components/Forms/ProfileForm'
+// import ProfileForm from '@/components/Forms/ProfileForm'
 import { getProfile } from '@/lib/apiCalls/profile'
+import dynamic from 'next/dynamic'
 import { cookies } from 'next/headers'
 import React from 'react'
+const ProfileForm = dynamic(() => import('@/components/Forms/ProfileForm'), { ssr: false })
 
 const Dashboard = async () => {
     const cookieStore = cookies()
